@@ -8,7 +8,7 @@ Use only the supplied evidence. Do not invent credentials, publications, employm
 
 ```text
 VOICE_PROFILE_JSON:
-[Load from ~/.voice-letter/profiles/<name>.json]
+[Load from ~/.in-my-voice/profiles/<name>.json]
 
 WRITING_GOAL:
 [What this piece is and why — cover letter, email, LinkedIn post, essay, text message, etc. State the genre explicitly; it drives which AI-tells categories apply during revision.]

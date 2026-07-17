@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/commrelayunit/voice-letter/core/schemas/voice-profile.schema.json",
+  "$id": "https://github.com/commrelayunit/in-my-voice/core/schemas/voice-profile.schema.json",
   "title": "VoiceProfile",
   "type": "object",
   "required": [

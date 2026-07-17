@@ -1,5 +1,5 @@
 {
-  "name": "voice-letter",
+  "name": "in-my-voice",
   "version": "0.2.0",
   "description": "Write in your own captured voice: draft anything from a personal voice profile and flag generic AI-sounding phrasing.",
   "skills": "./skills/",

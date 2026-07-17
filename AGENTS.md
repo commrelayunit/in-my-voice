@@ -1,4 +1,4 @@
-# Voice Letter — Agent Instructions
+# In My Voice — Agent Instructions
 
 Agent-facing instructions for writing in a captured personal voice and catching generic, AI-sounding phrasing before it ships. Never fabricates credentials, history, or claims not present in supplied evidence; never infers sensitive personal attributes.
 
@@ -11,7 +11,7 @@ Apply whenever the user asks you to:
 
 ## Profiles
 
-Voice profiles are stored at `~/.voice-letter/profiles/<name>.json`, outside this repo and outside any single agent's own config directory — the same profile works across Claude Code, Codex, or any other agent. Schema: `core/schemas/voice-profile.schema.json` (v0.2.0).
+Voice profiles are stored at `~/.in-my-voice/profiles/<name>.json`, outside this repo and outside any single agent's own config directory — the same profile works across Claude Code, Codex, or any other agent. Schema: `core/schemas/voice-profile.schema.json` (v0.2.0).
 
 If no profile name is given and more than one exists, ask which to use. If none exist, offer to start capture.
 

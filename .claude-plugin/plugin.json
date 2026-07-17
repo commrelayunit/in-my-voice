@@ -1,8 +1,8 @@
 {
-  "name": "voice-letter",
+  "name": "in-my-voice",
   "description": "Write in your own captured voice: draft anything (cover letters, emails, posts, essays) from a personal voice profile, and flag generic AI-sounding phrasing before you send it.",
   "version": "0.2.0",
   "author": { "name": "commrelayunit" },
-  "homepage": "https://github.com/commrelayunit/voice-letter",
-  "skills": ["./skills/voice-letter"]
+  "homepage": "https://github.com/commrelayunit/in-my-voice",
+  "skills": ["./skills/in-my-voice"]
 }

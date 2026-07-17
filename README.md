@@ -1,6 +1,6 @@
-# Voice Letter
+# In My Voice
 
-Voice Letter is a skill for writing anything — cover letters, emails, posts, essays — in your own captured voice, and catching generic AI-sounding phrasing before it ships.
+In My Voice is a skill for writing anything — cover letters, emails, posts, essays — in your own captured voice, and catching generic AI-sounding phrasing before it ships.
 
 Voice capture is adaptive: paste writing samples if you have them, and/or answer a handful of short prompts in your own words (never self-reported style claims — the skill infers your voice from what you actually write). Drafting takes a goal, audience, and target length. Revision runs a voice-fidelity check plus an additive-risk scan against a layered, extensible blocklist of AI "tells."
 
@@ -17,7 +17,7 @@ core/
   blocklist/
     ai-tells-baseline.md              # repo-maintained AI-giveaway patterns
     custom-terms.md                   # your own extensible additions
-skills/voice-letter/SKILL.md          # Claude Code entry point
+skills/in-my-voice/SKILL.md          # Claude Code entry point
 AGENTS.md                             # generic-harness entry point
 .claude-plugin/                       # Claude Code plugin + self-hosted marketplace
 .codex-plugin/                        # Codex plugin manifest
@@ -30,8 +30,8 @@ examples/writing-samples.md
 ### Claude Code
 
 ```sh
-claude plugin marketplace add https://github.com/commrelayunit/voice-letter
-claude plugin install voice-letter@voice-letter
+claude plugin marketplace add https://github.com/commrelayunit/in-my-voice
+claude plugin install in-my-voice@in-my-voice
 ```
 
 Use the HTTPS URL, not the `org/repo` shorthand — the shorthand clones over SSH and fails on machines without a configured GitHub SSH key.
@@ -42,8 +42,8 @@ Add to your Codex plugin marketplace configuration (`~/.agents/plugins/marketpla
 
 ```json
 {
-  "name": "voice-letter",
-  "source": { "source": "github", "repo": "commrelayunit/voice-letter" },
+  "name": "in-my-voice",
+  "source": { "source": "github", "repo": "commrelayunit/in-my-voice" },
   "policy": { "installation": "AVAILABLE", "authentication": "NONE" },
   "category": "Writing"
 }
@@ -53,8 +53,8 @@ This repo ships its own `.agents/plugins/marketplace.json`, so pointing Codex at
 
 ```json
 {
-  "name": "voice-letter",
-  "source": { "source": "local", "path": "~/plugins/voice-letter" },
+  "name": "in-my-voice",
+  "source": { "source": "local", "path": "~/plugins/in-my-voice" },
   "policy": { "installation": "AVAILABLE", "authentication": "NONE" },
   "category": "Writing"
 }
@@ -67,21 +67,21 @@ Manifest: `.codex-plugin/plugin.json` — instructions: `AGENTS.md`.
 This skill's entry file depends on the rest of the repo (`core/flows/`, `core/schemas/`, `core/blocklist/`) via relative paths, so a single-file copy won't work. Clone the full repo and point Gemini CLI at the real path:
 
 ```sh
-git clone https://github.com/commrelayunit/voice-letter.git ~/tools/voice-letter
+git clone https://github.com/commrelayunit/in-my-voice.git ~/tools/in-my-voice
 mkdir -p ~/.gemini/skills
-ln -s ~/tools/voice-letter/skills/voice-letter ~/.gemini/skills/voice-letter
+ln -s ~/tools/in-my-voice/skills/in-my-voice ~/.gemini/skills/in-my-voice
 ```
 
-(A symlink keeps `skills/voice-letter/SKILL.md`'s `../../core/...` paths resolving correctly, since they resolve relative to the real location in `~/tools/voice-letter`.)
+(A symlink keeps `skills/in-my-voice/SKILL.md`'s `../../core/...` paths resolving correctly, since they resolve relative to the real location in `~/tools/in-my-voice`.)
 
 ### opencode
 
 Same dependency on `core/` as above — clone the full repo and symlink the skill into place:
 
 ```sh
-git clone https://github.com/commrelayunit/voice-letter.git ~/tools/voice-letter
+git clone https://github.com/commrelayunit/in-my-voice.git ~/tools/in-my-voice
 mkdir -p ~/.config/opencode/skills
-ln -s ~/tools/voice-letter/skills/voice-letter ~/.config/opencode/skills/voice-letter
+ln -s ~/tools/in-my-voice/skills/in-my-voice ~/.config/opencode/skills/in-my-voice
 ```
 
 Restart opencode to load the skill.
@@ -91,23 +91,23 @@ Restart opencode to load the skill.
 `AGENTS.md` also depends on the rest of the repo via relative paths (`core/flows/...`) — don't copy it alone. Clone the full repo, then point your tool's rules config at the real `AGENTS.md` path inside the clone:
 
 ```sh
-git clone https://github.com/commrelayunit/voice-letter.git ~/tools/voice-letter
+git clone https://github.com/commrelayunit/in-my-voice.git ~/tools/in-my-voice
 ```
 
-Then reference `~/tools/voice-letter/AGENTS.md` from your tool's rules UI, or symlink the whole clone (not just the file) into your project if your tool expects `AGENTS.md` at the project root — symlinking `AGENTS.md` alone breaks its relative paths into `core/`:
+Then reference `~/tools/in-my-voice/AGENTS.md` from your tool's rules UI, or symlink the whole clone (not just the file) into your project if your tool expects `AGENTS.md` at the project root — symlinking `AGENTS.md` alone breaks its relative paths into `core/`:
 
 ```sh
-ln -s ~/tools/voice-letter ./voice-letter-tools
+ln -s ~/tools/in-my-voice ./in-my-voice-tools
 ```
 
-Then point your tool's rules config at `./voice-letter-tools/AGENTS.md`.
+Then point your tool's rules config at `./in-my-voice-tools/AGENTS.md`.
 
 ### Any harness, manual
 
 Reference the skill file directly:
 
 ```markdown
-@path/to/voice-letter/skills/voice-letter/SKILL.md
+@path/to/in-my-voice/skills/in-my-voice/SKILL.md
 ```
 
 ## Quick Start
@@ -118,4 +118,4 @@ Reference the skill file directly:
 
 ## Privacy Notes
 
-Voice profiles and raw writing samples are never committed to this repo — they live at `~/.voice-letter/profiles/<name>.json`, outside any single agent's own config directory. Blocklist terms (`core/blocklist/`) are not sensitive and are intentionally git-tracked so they're shared and extensible.
+Voice profiles and raw writing samples are never committed to this repo — they live at `~/.in-my-voice/profiles/<name>.json`, outside any single agent's own config directory. Blocklist terms (`core/blocklist/`) are not sensitive and are intentionally git-tracked so they're shared and extensible.

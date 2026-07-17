@@ -2,7 +2,7 @@
 
 Date: 2026-07-17
 
-Project: `commrelayunit/voice-letter`
+Project: `commrelayunit/in-my-voice`
 
 Purpose: structure generated-text giveaways from broadest to narrowest signal, for use by `core/flows/revise-flow.md` as an additive-risk lint against any piece of writing — not only cover letters.
 
@@ -402,7 +402,7 @@ Examples:
 
 Action: **soft warning**.
 
-## 7. Implementation Shape For Voice Letter
+## 7. Implementation Shape For In My Voice
 
 ### 7.1 Suggested Severity Model
 

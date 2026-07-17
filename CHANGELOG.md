@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `voice-letter` are documented in this file.
+All notable changes to `in-my-voice` are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this
 project uses [Semantic Versioning](https://semver.org/).
@@ -10,7 +10,7 @@ project uses [Semantic Versioning](https://semver.org/).
 ### Changed
 - README's Gemini CLI, opencode, and generic-harness (Cursor/Windsurf/Pi) install
   instructions now require a full repo clone instead of copying a single file —
-  `skills/voice-letter/SKILL.md` and `AGENTS.md` both depend on `core/` via
+  `skills/in-my-voice/SKILL.md` and `AGENTS.md` both depend on `core/` via
   relative paths, so a single-file copy silently broke at runtime.
 - Removed the stale `docs/product-brief.md` reference from README's repository
   layout (that file is no longer part of the shipped repo).
@@ -36,7 +36,7 @@ project uses [Semantic Versioning](https://semver.org/).
   `sources` (raw provenance for gap-aware profile updates), renamed
   `draftingGuidance.coverLetterStrategy` to `draftingGuidance.strategyNotes`.
 - Profile storage moved from repo-adjacent scratch files to
-  `~/.voice-letter/profiles/<name>.json`, agent-neutral and never committed.
+  `~/.in-my-voice/profiles/<name>.json`, agent-neutral and never committed.
 
 ### Removed
 - `prompts/01-extract-voice-profile.md`, `prompts/02-draft-cover-letter.md`,
