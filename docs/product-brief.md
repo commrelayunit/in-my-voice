@@ -2,66 +2,46 @@
 
 ## Goal
 
-Build a practical assistant that learns a person's writing voice from samples and drafts cover letters that preserve that voice while still satisfying the conventions of a cover letter.
+A skill that learns a person's writing voice — from samples, interactive elicitation, or both — and drafts anything in that voice: cover letters, emails, posts, essays, or any other writing task, while actively catching generic AI-sounding phrasing.
 
 ## Core Use Case
 
-A person provides:
+A person provides, in any combination:
 
 - writing samples that represent how they naturally write
-- a CV, biography, or achievement notes
-- a target role, fellowship, grant, or opportunity description
-- constraints such as maximum length, language, formality, and required claims
+- short written responses to realistic elicitation scenarios (never self-reported style claims)
+- a goal, audience, and target length for what they want drafted
+- optional context material: CV, notes, background, prior thread
+- constraints such as maximum length, format, and required points
 
 The system produces:
 
-- a structured voice profile grounded in the samples
-- a first cover-letter draft
-- a revision pass that removes generic language, unsupported claims, and mismatched tone
+- a structured, named voice profile grounded in the collected sources
+- a first draft in that voice, fit to the stated goal and length
+- a revision pass with two checks: voice fidelity against the profile, and an additive-risk scan against a layered, extensible blocklist of AI "tells"
 
-## Non-Goals For The First Version
+## Non-Goals
 
 - Do not impersonate a person deceptively.
 - Do not fabricate experience, credentials, publications, grants, or personal history.
-- Do not infer sensitive personal attributes from samples.
-- Do not store real samples in the repository.
-- Do not overfit to quirks that make the final letter awkward or unprofessional.
+- Do not infer sensitive personal attributes from samples or elicited text.
+- Do not overfit to quirks that make the final piece awkward or unprofessional.
+- Do not store profiles or raw sources inside the git repo, or inside any single agent's own config directory.
 
 ## Product Shape
 
-Start as a prompt pack. This is the fastest useful unit and avoids choosing an interface too early.
-
-Likely next forms:
-
-- CLI that accepts sample files, a CV, and a job description
-- ChatGPT/Codex plugin with a local/private file workflow
-- browser extension for drafting in job application forms
-- small local-first web app with encrypted project files
+A multi-agent skill: `core/` holds the agent-agnostic schema, flows, elicitation bank, and blocklists; `skills/voice-letter/SKILL.md` and `AGENTS.md` are thin, tool-specific entry points into the same content. Packaged as an installable plugin for Claude Code and Codex; installable by file-copy for Gemini CLI, opencode, and generic harnesses.
 
 ## Voice Profile Dimensions
 
-The profile should capture:
-
-- sentence rhythm and length
-- paragraph structure
-- preferred transitions
-- level of directness
-- degree of warmth or restraint
-- technical density
-- evidence style
-- hedging and certainty patterns
-- recurring rhetorical moves
-- words or phrases to prefer
-- words or phrases to avoid
-- examples of in-voice rewrites
+The profile captures 8 trait dimensions: tone, sentence rhythm, paragraph structure, directness, evidence style, transitions, lexicon, and hedging — each with a description, cited evidence, and a confidence level. It also carries drafting guidance (preferred/avoided language, strategy notes), in-voice rewrite examples, and a per-profile custom blocklist layered on top of the repo-wide baseline.
 
 ## Quality Bar
 
 A good output should feel like:
 
 - the person wrote it on a focused day
-- the letter is specific to the opportunity
-- the claims are grounded in supplied evidence
-- the prose avoids cover-letter cliches
+- the piece is specific to its goal and audience
+- claims are grounded in supplied evidence
+- the prose avoids generic filler for its genre
 - the voice is recognizable but not caricatured
-
