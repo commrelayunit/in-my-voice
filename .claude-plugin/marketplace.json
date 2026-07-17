@@ -1,0 +1,16 @@
+{
+  "name": "voice-letter",
+  "owner": { "name": "commrelayunit" },
+  "metadata": {
+    "description": "Write in your own captured voice: draft anything from a personal voice profile and flag generic AI-sounding phrasing.",
+    "version": "0.2.0"
+  },
+  "plugins": [
+    {
+      "name": "voice-letter",
+      "description": "Write in your own captured voice: draft anything (cover letters, emails, posts, essays) from a personal voice profile, and flag generic AI-sounding phrasing before you send it.",
+      "source": "./",
+      "version": "0.2.0"
+    }
+  ]
+}

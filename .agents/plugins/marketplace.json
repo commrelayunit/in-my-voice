@@ -1,0 +1,12 @@
+{
+  "name": "voice-letter",
+  "interface": { "displayName": "Voice Letter" },
+  "plugins": [
+    {
+      "name": "voice-letter",
+      "source": { "source": "github", "repo": "commrelayunit/voice-letter" },
+      "policy": { "installation": "AVAILABLE", "authentication": "NONE" },
+      "category": "Writing"
+    }
+  ]
+}
