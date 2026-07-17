@@ -22,7 +22,6 @@ AGENTS.md                             # generic-harness entry point
 .claude-plugin/                       # Claude Code plugin + self-hosted marketplace
 .codex-plugin/                        # Codex plugin manifest
 .agents/plugins/                      # self-hosted Codex marketplace manifest
-docs/product-brief.md
 examples/writing-samples.md
 ```
 
@@ -65,28 +64,40 @@ Manifest: `.codex-plugin/plugin.json` — instructions: `AGENTS.md`.
 
 ### Gemini CLI
 
+This skill's entry file depends on the rest of the repo (`core/flows/`, `core/schemas/`, `core/blocklist/`) via relative paths, so a single-file copy won't work. Clone the full repo and point Gemini CLI at the real path:
+
 ```sh
-mkdir -p ~/.gemini/skills/voice-letter
-curl -o ~/.gemini/skills/voice-letter/SKILL.md \
-  https://raw.githubusercontent.com/commrelayunit/voice-letter/main/skills/voice-letter/SKILL.md
+git clone https://github.com/commrelayunit/voice-letter.git ~/tools/voice-letter
+mkdir -p ~/.gemini/skills
+ln -s ~/tools/voice-letter/skills/voice-letter ~/.gemini/skills/voice-letter
 ```
+
+(A symlink keeps `skills/voice-letter/SKILL.md`'s `../../core/...` paths resolving correctly, since they resolve relative to the real location in `~/tools/voice-letter`.)
 
 ### opencode
 
+Same dependency on `core/` as above — clone the full repo and symlink the skill into place:
+
 ```sh
-mkdir -p ~/.config/opencode/skills/voice-letter
-curl -o ~/.config/opencode/skills/voice-letter/SKILL.md \
-  https://raw.githubusercontent.com/commrelayunit/voice-letter/main/skills/voice-letter/SKILL.md
+git clone https://github.com/commrelayunit/voice-letter.git ~/tools/voice-letter
+mkdir -p ~/.config/opencode/skills
+ln -s ~/tools/voice-letter/skills/voice-letter ~/.config/opencode/skills/voice-letter
 ```
 
 Restart opencode to load the skill.
 
 ### Cursor, Windsurf, Pi, and other generic harnesses
 
-Copy `AGENTS.md` to your project root, or paste it into the tool's rules UI:
+`AGENTS.md` also depends on the rest of the repo via relative paths (`core/flows/...`) — don't copy it alone. Clone the full repo, then point your tool's rules config at the real `AGENTS.md` path inside the clone:
 
 ```sh
-curl -O https://raw.githubusercontent.com/commrelayunit/voice-letter/main/AGENTS.md
+git clone https://github.com/commrelayunit/voice-letter.git ~/tools/voice-letter
+```
+
+Then reference `~/tools/voice-letter/AGENTS.md` from your tool's rules UI, or symlink/copy the whole clone (not just the file) into your project if your tool expects `AGENTS.md` at the project root:
+
+```sh
+ln -s ~/tools/voice-letter/AGENTS.md ./AGENTS.md
 ```
 
 ### Any harness, manual

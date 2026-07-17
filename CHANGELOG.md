@@ -5,6 +5,16 @@ All notable changes to `voice-letter` are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this
 project uses [Semantic Versioning](https://semver.org/).
 
+## [0.2.1] - 2026-07-17
+
+### Changed
+- README's Gemini CLI, opencode, and generic-harness (Cursor/Windsurf/Pi) install
+  instructions now require a full repo clone instead of copying a single file —
+  `skills/voice-letter/SKILL.md` and `AGENTS.md` both depend on `core/` via
+  relative paths, so a single-file copy silently broke at runtime.
+- Removed the stale `docs/product-brief.md` reference from README's repository
+  layout (that file is no longer part of the shipped repo).
+
 ## [0.2.0] - 2026-07-17
 
 ### Changed
