@@ -1,7 +1,27 @@
 {
   "name": "in-my-voice",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Write in your own captured voice: draft anything from a personal voice profile and flag generic AI-sounding phrasing.",
   "skills": "./skills/",
-  "author": { "name": "commrelayunit" }
+  "author": { "name": "commrelayunit" },
+  "homepage": "https://github.com/commrelayunit/in-my-voice",
+  "repository": "https://github.com/commrelayunit/in-my-voice",
+  "license": "GPL-3.0",
+  "keywords": ["writing", "voice", "style", "revision"],
+  "interface": {
+    "displayName": "In My Voice",
+    "shortDescription": "Draft and revise writing in a captured personal voice.",
+    "longDescription": "Capture a reusable voice profile from samples and short elicitation prompts, draft writing against that profile, and flag generic AI-sounding phrasing before sending.",
+    "developerName": "commrelayunit",
+    "category": "Writing",
+    "capabilities": ["Interactive", "Write", "Review"],
+    "websiteURL": "https://github.com/commrelayunit/in-my-voice",
+    "privacyPolicyURL": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
+    "termsOfServiceURL": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+    "defaultPrompt": [
+      "Capture a voice profile from these samples.",
+      "Draft this in my captured voice.",
+      "Check this draft for generic AI phrasing."
+    ]
+  }
 }
