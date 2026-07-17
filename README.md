@@ -17,7 +17,7 @@ core/
   blocklist/
     ai-tells-baseline.md              # repo-maintained AI-giveaway patterns
     custom-terms.md                   # your own extensible additions
-skills/in-my-voice/SKILL.md          # Claude Code entry point
+skills/in-my-voice/SKILL.md           # Claude Code entry point
 AGENTS.md                             # generic-harness entry point
 .claude-plugin/                       # Claude Code plugin + self-hosted marketplace
 .codex-plugin/                        # Codex plugin manifest

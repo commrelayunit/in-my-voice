@@ -5,15 +5,25 @@ All notable changes to `in-my-voice` are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this
 project uses [Semantic Versioning](https://semver.org/).
 
-## [0.2.1] - 2026-07-17
+## [0.2.2] - 2026-07-17
 
 ### Changed
 - README's Gemini CLI, opencode, and generic-harness (Cursor/Windsurf/Pi) install
   instructions now require a full repo clone instead of copying a single file —
   `skills/in-my-voice/SKILL.md` and `AGENTS.md` both depend on `core/` via
   relative paths, so a single-file copy silently broke at runtime.
-- Removed the stale `docs/product-brief.md` reference from README's repository
-  layout (that file is no longer part of the shipped repo).
+- Added scenario IDs to the elicitation bank and documented default
+  initialization for `customBlocklist` and `limits`.
+- Generalized revise-flow output naming from `revised_letter` to
+  `revised_draft`, and made `EVIDENCE_MAP` explicitly optional.
+
+## [0.2.1] - 2026-07-17
+
+### Changed
+- Renamed the project from `voice-letter` to `in-my-voice`, including plugin
+  names, marketplace manifests, repository references, and documentation.
+- Moved profile storage references from `~/.voice-letter/profiles/` to
+  `~/.in-my-voice/profiles/`.
 
 ## [0.2.0] - 2026-07-17
 
