@@ -1,4 +1,4 @@
-# Voice Letter → Claude Code Skill: Design
+# Voice Letter → Multi-Agent Voice-Writing Skill: Design
 
 Date: 2026-07-17
 
@@ -27,19 +27,22 @@ every trait is a gap, so capture is fully interactive.
 - Do not infer sensitive personal attributes from samples or elicited text.
 - Do not overfit to quirks that make output awkward, unprofessional, or caricatured.
 - Never store voice profiles or raw sources (samples, elicited text) inside
-  the git repo — they live under `~/.claude/voice-profiles/`, outside version
-  control. Blocklist terms are not sensitive and are intentionally
-  git-tracked in `core/blocklist/`.
+  the git repo — they live under `~/.voice-letter/profiles/`, outside version
+  control and independent of any single agent's own config directory (so it
+  works the same whether you're using Claude Code, Codex, or another agent).
+  Blocklist terms are not sensitive and are intentionally git-tracked in
+  `core/blocklist/`.
 
 ## Architecture
 
-Split into an agent-agnostic **core** (flows, schema, elicitation bank,
-blocklists — plain markdown/JSON, no tool-specific conventions) and a thin
-**adapter** per coding agent. Claude Code is the only adapter built now, but
-the split exists specifically so Cursor, Windsurf, opencode, Pi, and OpenAI
-Codex adapters can be added later without touching the core logic — each
-would just be a thin entry file in its own tool's convention (`.cursorrules`,
-`AGENTS.md`, etc.) that points into the same `core/` flows.
+Follows the packaging pattern used by `refhub-skill` / `refhub-paper-drafter`
+(both general-purpose, multi-agent skill repos): deep reference material
+lives once in `core/` (schema, elicitation bank, blocklists, flow specifics —
+plain markdown/JSON, no tool-specific conventions), and each target agent
+gets its own entry document that contains the actual routing/operating
+instructions and points into `core/` for the rest. Claude Code and Codex get
+full plugin packaging now; other agents get a generic `AGENTS.md` plus a
+documented manual-install path.
 
 ```text
 voice-letter/
@@ -53,27 +56,46 @@ voice-letter/
     blocklist/
       ai-tells-baseline.md            # repo-maintained, general AI giveaways
       custom-terms.md                 # your own extensible list, git-tracked
-  adapters/
-    claude-code/
-      voice-letter/
-        SKILL.md                      # thin wrapper: frontmatter + routes into ../../../core/*
-  scripts/
-    install-claude-code.sh            # symlinks adapters/claude-code/voice-letter -> ~/.claude/skills/voice-letter
+  skills/
+    voice-letter/
+      SKILL.md                        # Claude Code canonical skill: frontmatter + routing/operating instructions + pointers into core/
+  AGENTS.md                           # generic-harness instructions (Cursor, Windsurf, Pi, opencode, Gemini CLI): same routing/operating content as SKILL.md, no frontmatter, points into core/
+  .claude-plugin/
+    plugin.json                       # Claude Code plugin manifest {name, description, version, author, homepage, skills: ["./skills/voice-letter"]}
+    marketplace.json                  # self-hosted marketplace so `claude plugin marketplace add <this-repo>` works directly
+  .codex-plugin/
+    plugin.json                       # Codex plugin manifest {name, version, description, skills: "./skills/", author}
+  .agents/
+    plugins/
+      marketplace.json                # self-hosted Codex-style marketplace manifest
+  CHANGELOG.md                        # Keep a Changelog format, semver
   docs/product-brief.md               # updated for general-purpose scope
-  README.md                           # updated
+  README.md                           # updated, with an install section per target agent
   examples/writing-samples.md         # kept, genre-neutral
 ```
 
 `prompts/01-03-*.md` and the old cover-letter-only schema are retired; their
-logic is generalized into `core/*`. Nothing under `core/` references Claude
-Code, SKILL.md frontmatter, or `~/.claude/...` paths — that's confined to
-`adapters/claude-code/`.
+logic is generalized into `core/*`. `core/` itself references nothing
+Claude- or Codex-specific — only `skills/voice-letter/SKILL.md`,
+`.claude-plugin/`, and `.codex-plugin/` do.
 
-`scripts/install-claude-code.sh` symlinks `adapters/claude-code/voice-letter`
-to `~/.claude/skills/voice-letter` (falls back to a copy if symlinking isn't
-possible), so edits in the repo take effect immediately without reinstalling.
-Because it's a symlink, relative paths from `SKILL.md` up into `core/`
-resolve normally on disk.
+SKILL.md and AGENTS.md are expected to be manually kept in sync on their
+shared framing (same lesson as refhub's CHANGELOG, which calls this out as a
+recurring chore) — but neither duplicates the large tables/banks in `core/`;
+both just point to them, the same way this session's own `brainstorming`
+skill loads `references/*.md` on demand rather than inlining them.
+
+### Install paths (README, mirrors refhub)
+
+- **Claude Code**: `claude plugin marketplace add https://github.com/commrelayunit/voice-letter` then `claude plugin install voice-letter@voice-letter`. Use the HTTPS URL, not the `org/repo` shorthand — the shorthand clones over SSH and fails without a configured GitHub SSH key.
+- **Codex**: add a marketplace entry pointing at `github: commrelayunit/voice-letter` (or a local clone path) referencing `.codex-plugin/plugin.json`; instructions come from `AGENTS.md`.
+- **Gemini CLI / opencode**: `cp -r skills/voice-letter ~/.gemini/skills/` or `~/.config/opencode/skills/` respectively.
+- **Cursor / Windsurf / Pi / other generic harnesses**: copy `AGENTS.md` into the project root, or paste it into the tool's rules UI.
+- **Any harness, manual**: reference `skills/voice-letter/SKILL.md` directly by path.
+
+No CLI layer is needed (unlike refhub) — voice-letter has no external API;
+its only I/O is reading/writing local profile JSON files, which every one of
+these agents can already do with its own file tools.
 
 ### Blocklist (three layers)
 
@@ -92,8 +114,10 @@ The revise flow merges all three during the AI-tells pass.
 ### Profile storage
 
 Each named profile is a single JSON file at
-`~/.claude/voice-profiles/<name>.json`. It embeds both the distilled traits
-and a `sources` array (raw samples + elicited responses with provenance and
+`~/.voice-letter/profiles/<name>.json` — deliberately outside any one agent's
+own config directory, so the same profile is usable whether you're in Claude
+Code, Codex, or another agent. It embeds both the distilled traits and a
+`sources` array (raw samples + elicited responses with provenance and
 timestamps), so a later "update this profile" pass can see what's already
 been asked/observed instead of starting over. This file is never committed
 to git.
@@ -120,7 +144,7 @@ to git.
    tone/rhythm/structure claims always come from analyzing written text, never
    from self-report.
 8. Merge everything into the profile. Show the person a summary before
-   writing to `~/.claude/voice-profiles/<name>.json`.
+   writing to `~/.voice-letter/profiles/<name>.json`.
 
 ## Elicitation Bank (`core/elicitation-bank.md`)
 
@@ -191,24 +215,36 @@ Output: `revised_letter`, `change_log`, `remaining_risks`, and
 - add `sampleSummary.sources: {samples: n, elicited: n}` alongside the
   existing `sampleCount`/`confidence`
 
-## SKILL.md (Claude Code adapter, `adapters/claude-code/voice-letter/SKILL.md`)
+## SKILL.md (`skills/voice-letter/SKILL.md`) and AGENTS.md
 
-A thin wrapper: frontmatter `name: voice-letter` with a description covering
-its trigger conditions (capturing/updating a personal voice profile, drafting
-anything in that voice given a goal and length, or checking an existing draft
-for generic/AI-sounding phrasing). The body routes to `core/flows/capture-flow.md`,
-`core/flows/draft-flow.md`, or `core/flows/revise-flow.md` based on what the
-person is asking for, and always loads the relevant profile JSON plus the
-three blocklist layers when revising. It contains no logic of its own beyond
-routing and the Claude Code-specific conventions (frontmatter, `~/.claude/skills`
-install location) — everything else lives in `core/`.
+`SKILL.md` carries Claude Code's frontmatter — `name: voice-letter` and a
+`description` covering its trigger conditions (capturing/updating a personal
+voice profile, drafting anything in that voice given a goal and length, or
+checking an existing draft for generic/AI-sounding phrasing). Its body states
+how to operate: route to `core/flows/capture-flow.md`, `core/flows/draft-flow.md`,
+or `core/flows/revise-flow.md` based on what the person is asking for, and
+always load the relevant profile JSON plus the three blocklist layers when
+revising.
 
-## Future Adapters (not built now)
+`AGENTS.md` at the repo root carries the same trigger conditions and routing
+instructions, reformatted without Claude-specific frontmatter, for Cursor,
+Windsurf, Pi, opencode, and Gemini CLI. It points into the same `core/` files
+as SKILL.md. The two are kept in sync by hand on this top-level framing; the
+large reference content they both point to is never duplicated.
 
-The same `core/` content should work for other coding agents with only a new
-thin entry file per tool: e.g. `adapters/cursor/.cursorrules`, an
-`adapters/codex/AGENTS.md`, or equivalents for Windsurf, opencode, and Pi.
-Each would state the same trigger conditions in that tool's convention and
-point into the identical `core/flows/*`, `core/blocklist/*`, and
-`core/schemas/voice-profile.schema.json`. None of this is scoped for this
-implementation pass — it's the reason `core/` stays tool-agnostic now.
+## Packaging for Claude Code and Codex (built now)
+
+- `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json` make this
+  repo directly installable as a self-hosted Claude Code plugin/marketplace
+  (`claude plugin marketplace add` + `claude plugin install`).
+- `.codex-plugin/plugin.json` + `.agents/plugins/marketplace.json` do the
+  equivalent for Codex's marketplace convention, pointing at `AGENTS.md` for
+  instructions.
+- Gemini CLI, opencode, and other generic harnesses don't get dedicated
+  plugin manifests (none of them have an established one) — they're covered
+  by the skill-copy and `AGENTS.md` install paths documented in the README.
+
+Nothing further is deferred to "future adapters": this covers every agent
+named in scope. A genuinely new adapter format later (e.g. if Windsurf ships
+its own plugin/marketplace convention) would just add another manifest
+pointing at the same `core/` and `skills/voice-letter/SKILL.md` content.
