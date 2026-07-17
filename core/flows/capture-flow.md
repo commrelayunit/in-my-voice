@@ -4,7 +4,7 @@ You are building or updating a structured voice profile so future drafts sound l
 
 ## Step 1: Identify the profile
 
-Ask which named profile to build or update (e.g. "work", "personal"). If it already exists at `~/.voice-letter/profiles/<name>.json`, load it — you'll extend its `sources` and `traits`, not start over.
+Ask which named profile to build or update (e.g. "work", "personal"). If it already exists at `~/.in-my-voice/profiles/<name>.json`, load it — you'll extend its `sources` and `traits`, not start over.
 
 ## Step 2: Collect samples (if any)
 
@@ -42,4 +42,4 @@ From everything collected, fill in:
 
 ## Step 8: Confirm and save
 
-Show the person a short summary of the profile (traits + confidence levels + a couple of example rewrites). On confirmation, write the full profile — matching `core/schemas/voice-profile.schema.json` exactly, including `profileName`, `version: "0.2.0"`, and `sampleSummary.sources` counts — to `~/.voice-letter/profiles/<name>.json`. Never write this file inside the git repo.
+Show the person a short summary of the profile (traits + confidence levels + a couple of example rewrites). On confirmation, write the full profile — matching `core/schemas/voice-profile.schema.json` exactly, including `profileName`, `version: "0.2.0"`, and `sampleSummary.sources` counts — to `~/.in-my-voice/profiles/<name>.json`. Never write this file inside the git repo.

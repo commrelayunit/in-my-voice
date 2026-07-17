@@ -1,15 +1,15 @@
 ---
-name: voice-letter
+name: in-my-voice
 description: Use when the user wants to write something in their own personal voice (cover letters, emails, posts, essays, or any other writing task), wants to capture or update a personal voice profile from writing samples and/or short elicitation answers, or wants an existing draft checked for generic, AI-sounding phrasing before sending it.
 ---
 
-# Voice Letter
+# In My Voice
 
 Draft anything in a captured personal voice, and catch generic AI-sounding phrasing before it goes out. Never fabricates credentials, history, or claims not present in supplied evidence; never infers sensitive personal attributes.
 
 ## Profiles
 
-Voice profiles are stored at `~/.voice-letter/profiles/<name>.json`, outside this repo and outside any single agent's own config directory — the same profile works whether you're in Claude Code, Codex, or another agent. Schema: `../../core/schemas/voice-profile.schema.json` (v0.2.0).
+Voice profiles are stored at `~/.in-my-voice/profiles/<name>.json`, outside this repo and outside any single agent's own config directory — the same profile works whether you're in Claude Code, Codex, or another agent. Schema: `../../core/schemas/voice-profile.schema.json` (v0.2.0).
 
 If no profile name is given and more than one exists, ask which to use. If none exist, offer to start capture.
 

@@ -1,9 +1,17 @@
 # Changelog
 
-All notable changes to `voice-letter` are documented in this file.
+All notable changes to `in-my-voice` are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this
 project uses [Semantic Versioning](https://semver.org/).
+
+## [0.2.1] - 2026-07-17
+
+### Changed
+- Renamed the project from `voice-letter` to `in-my-voice`, including plugin
+  names, marketplace manifests, repository references, and documentation.
+- Moved profile storage references from `~/.voice-letter/profiles/` to
+  `~/.in-my-voice/profiles/`.
 
 ## [0.2.0] - 2026-07-17
 

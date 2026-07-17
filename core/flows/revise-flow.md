@@ -6,7 +6,7 @@ You are revising a draft against a voice profile and a layered blocklist. Make t
 
 ```text
 VOICE_PROFILE_JSON:
-[Load from ~/.voice-letter/profiles/<name>.json]
+[Load from ~/.in-my-voice/profiles/<name>.json]
 
 WRITING_SAMPLE_EXCERPTS:
 [A few representative excerpts from the profile's own sources.]

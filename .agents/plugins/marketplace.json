@@ -1,10 +1,10 @@
 {
-  "name": "voice-letter",
-  "interface": { "displayName": "Voice Letter" },
+  "name": "in-my-voice",
+  "interface": { "displayName": "In My Voice" },
   "plugins": [
     {
-      "name": "voice-letter",
-      "source": { "source": "github", "repo": "commrelayunit/voice-letter" },
+      "name": "in-my-voice",
+      "source": { "source": "github", "repo": "commrelayunit/in-my-voice" },
       "policy": { "installation": "AVAILABLE", "authentication": "NONE" },
       "category": "Writing"
     }
