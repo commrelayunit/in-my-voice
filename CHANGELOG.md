@@ -5,6 +5,13 @@ All notable changes to `in-my-voice` are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this
 project uses [Semantic Versioning](https://semver.org/).
 
+## [0.2.4] - 2026-07-17
+
+### Changed
+- Added a Codex CLI fallback install path using the active
+  `${CODEX_HOME:-$HOME/.codex}/skills` directory for headless setups where
+  marketplace plugins are not injected into the prompt.
+
 ## [0.2.3] - 2026-07-17
 
 ### Changed

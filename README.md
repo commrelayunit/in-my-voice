@@ -74,6 +74,15 @@ If you already have a personal marketplace file, append only the `plugins[]` ent
 
 Manifest: `.codex-plugin/plugin.json` — instructions: `AGENTS.md`.
 
+For headless Codex CLI setups where marketplace plugins are not exposed in the prompt, install the skill directly into the active Codex skills directory:
+
+```sh
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+ln -s ~/plugins/in-my-voice/skills/in-my-voice "${CODEX_HOME:-$HOME/.codex}/skills/in-my-voice"
+```
+
+The symlink keeps `skills/in-my-voice/SKILL.md`'s `../../core/...` references resolving against the cloned repo.
+
 ### Gemini CLI
 
 This skill's entry file depends on the rest of the repo (`core/flows/`, `core/schemas/`, `core/blocklist/`) via relative paths, so a single-file copy won't work. Clone the full repo and point Gemini CLI at the real path:
