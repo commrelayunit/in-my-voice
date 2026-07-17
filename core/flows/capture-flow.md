@@ -39,6 +39,8 @@ From everything collected, fill in:
 - `draftingGuidance.avoid` — words/phrases that would sound unlike them
 - `draftingGuidance.strategyNotes` — short notes on how to apply this voice when drafting (not cover-letter-specific — general notes like "leads with the concrete ask before framing")
 - `examples` — a few `{generic, inVoice, rationale}` triples showing a generic phrasing next to how this person would actually say it
+- `customBlocklist` — start as an empty array (`[]`) unless the person specifically flags terms to avoid for this profile
+- `limits` — start as an empty array (`[]`) unless the person states a hard constraint (e.g. never mention a specific former employer)
 
 ## Step 8: Confirm and save
 

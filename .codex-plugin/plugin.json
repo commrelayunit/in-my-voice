@@ -1,6 +1,6 @@
 {
   "name": "in-my-voice",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Write in your own captured voice: draft anything from a personal voice profile and flag generic AI-sounding phrasing.",
   "skills": "./skills/",
   "author": { "name": "commrelayunit" }

@@ -16,6 +16,9 @@ DRAFT:
 
 WRITING_GOAL:
 [Same value passed to draft-flow.md — determines which AI-tells categories apply.]
+
+EVIDENCE_MAP (optional):
+[From draft-flow.md's output, if this draft had CONTEXT_MATERIAL. May be absent — proceed without it if so.]
 ```
 
 ## Pass 1: Voice-fidelity
@@ -31,7 +34,7 @@ Load and merge three layers, broad to narrow:
 
 For each match, apply the evidence exceptions from `ai-tells-baseline.md` §"Recommended Lint Logic" before scoring:
 - do not flag a phrase that appears naturally in the profile's own samples, unless it's still weakening the piece
-- reduce risk when the sentence has concrete evidence (named project, metric, method, role requirement, artifact, product, team, deadline, constraint, result)
+- reduce risk when the sentence has concrete evidence (named project, publication, metric, method, role requirement, artifact, product, team, deadline, constraint, result)
 - increase risk when a paragraph has no applicant/subject-specific evidence at all
 
 Score additively per `ai-tells-baseline.md` §7.1:
@@ -44,12 +47,12 @@ Score additively per `ai-tells-baseline.md` §7.1:
 
 Total the score and classify: 0-2 no issue, 3-5 style review, 6-8 revise before final, 9+ regenerate or run a focused evidence-grounding pass.
 
-For each flag, either delete it, replace it with a concrete claim grounded in `evidence_map`, or keep it with a stated reason (appears in the profile's preferred language, or required by the target opportunity).
+For each flag, either delete it, replace it with a concrete claim grounded in `evidence_map` (if supplied), or keep it with a stated reason (appears in the profile's preferred language, or required by the target audience or goal).
 
 ## Output
 
 Return:
-1. `revised_letter` — the revised draft
+1. `revised_draft` — the revised draft
 2. `change_log` — concise explanation per change
 3. `remaining_risks` — factual uncertainty, tone mismatch, or missing evidence
 4. `ai_tells_flagged` — list of `{category, pattern, layer, severity, score, rationale}`, plus the total score and its threshold band

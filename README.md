@@ -64,29 +64,43 @@ Manifest: `.codex-plugin/plugin.json` — instructions: `AGENTS.md`.
 
 ### Gemini CLI
 
+This skill's entry file depends on the rest of the repo (`core/flows/`, `core/schemas/`, `core/blocklist/`) via relative paths, so a single-file copy won't work. Clone the full repo and point Gemini CLI at the real path:
+
 ```sh
-mkdir -p ~/.gemini/skills/in-my-voice
-curl -o ~/.gemini/skills/in-my-voice/SKILL.md \
-  https://raw.githubusercontent.com/commrelayunit/in-my-voice/main/skills/in-my-voice/SKILL.md
+git clone https://github.com/commrelayunit/in-my-voice.git ~/tools/in-my-voice
+mkdir -p ~/.gemini/skills
+ln -s ~/tools/in-my-voice/skills/in-my-voice ~/.gemini/skills/in-my-voice
 ```
+
+(A symlink keeps `skills/in-my-voice/SKILL.md`'s `../../core/...` paths resolving correctly, since they resolve relative to the real location in `~/tools/in-my-voice`.)
 
 ### opencode
 
+Same dependency on `core/` as above — clone the full repo and symlink the skill into place:
+
 ```sh
-mkdir -p ~/.config/opencode/skills/in-my-voice
-curl -o ~/.config/opencode/skills/in-my-voice/SKILL.md \
-  https://raw.githubusercontent.com/commrelayunit/in-my-voice/main/skills/in-my-voice/SKILL.md
+git clone https://github.com/commrelayunit/in-my-voice.git ~/tools/in-my-voice
+mkdir -p ~/.config/opencode/skills
+ln -s ~/tools/in-my-voice/skills/in-my-voice ~/.config/opencode/skills/in-my-voice
 ```
 
 Restart opencode to load the skill.
 
 ### Cursor, Windsurf, Pi, and other generic harnesses
 
-Copy `AGENTS.md` to your project root, or paste it into the tool's rules UI:
+`AGENTS.md` also depends on the rest of the repo via relative paths (`core/flows/...`) — don't copy it alone. Clone the full repo, then point your tool's rules config at the real `AGENTS.md` path inside the clone:
 
 ```sh
-curl -O https://raw.githubusercontent.com/commrelayunit/in-my-voice/main/AGENTS.md
+git clone https://github.com/commrelayunit/in-my-voice.git ~/tools/in-my-voice
 ```
+
+Then reference `~/tools/in-my-voice/AGENTS.md` from your tool's rules UI, or symlink the whole clone (not just the file) into your project if your tool expects `AGENTS.md` at the project root — symlinking `AGENTS.md` alone breaks its relative paths into `core/`:
+
+```sh
+ln -s ~/tools/in-my-voice ./in-my-voice-tools
+```
+
+Then point your tool's rules config at `./in-my-voice-tools/AGENTS.md`.
 
 ### Any harness, manual
 
