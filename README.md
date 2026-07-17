@@ -38,7 +38,15 @@ Use the HTTPS URL, not the `org/repo` shorthand — the shorthand clones over SS
 
 ### Codex
 
-Install it as a personal Codex plugin by cloning the repo under `~/plugins/`:
+For headless Codex CLI, use the installer:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/commrelayunit/in-my-voice/main/scripts/install-codex.sh | bash
+```
+
+It clones or updates the repo at `~/plugins/in-my-voice` and symlinks the skill into `${CODEX_HOME:-$HOME/.codex}/skills/in-my-voice`.
+
+If Codex plugin marketplaces are available in your surface, you can also install it as a personal Codex plugin by cloning the repo under `~/plugins/`:
 
 ```sh
 mkdir -p ~/plugins ~/.agents/plugins
@@ -74,7 +82,7 @@ If you already have a personal marketplace file, append only the `plugins[]` ent
 
 Manifest: `.codex-plugin/plugin.json` — instructions: `AGENTS.md`.
 
-For headless Codex CLI setups where marketplace plugins are not exposed in the prompt, install the skill directly into the active Codex skills directory:
+Manual headless Codex CLI install:
 
 ```sh
 mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"

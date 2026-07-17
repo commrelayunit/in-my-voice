@@ -5,6 +5,14 @@ All notable changes to `in-my-voice` are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this
 project uses [Semantic Versioning](https://semver.org/).
 
+## [0.2.5] - 2026-07-17
+
+### Changed
+- Added `scripts/install-codex.sh` so headless Codex CLI users can install with
+  one command instead of manually cloning and creating the skill symlink.
+- Updated README Codex instructions to lead with the installer while preserving
+  marketplace and manual fallback details.
+
 ## [0.2.4] - 2026-07-17
 
 ### Changed
