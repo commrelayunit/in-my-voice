@@ -1,0 +1,40 @@
+{
+  "profileName": "elicited-test",
+  "version": "0.2.0",
+  "sampleSummary": {
+    "sampleCount": 1,
+    "genres": ["email"],
+    "confidence": "medium",
+    "notes": "Fixture for testing elicited sources WITH MISSING scenarioId (should fail validation).",
+    "sources": { "samples": 0, "elicited": 1 }
+  },
+  "traits": {
+    "tone": { "description": "Warm but direct.", "evidence": ["I can't take this on right now — my plate's full through Friday."], "confidence": "medium" },
+    "sentenceRhythm": { "description": "Short declaratives mixed with longer explanatory sentences.", "evidence": ["I can't take this on right now — my plate's full through Friday. Happy to revisit next week if it's still open."], "confidence": "medium" },
+    "paragraphStructure": { "description": "Direct response followed by a future offer.", "evidence": [], "confidence": "medium" },
+    "directness": { "description": "States the refusal first, then provides alternative.", "evidence": ["I can't take this on right now."], "confidence": "high" },
+    "evidenceStyle": { "description": "Explains the reason (full plate) before offering future revisit.", "evidence": ["my plate's full through Friday"], "confidence": "medium" },
+    "transitions": { "description": "Uses \"so\" and direct reasoning.", "evidence": ["my plate's full through Friday. Happy to revisit next week"], "confidence": "medium" },
+    "lexicon": { "description": "Plain, conversational language.", "evidence": ["take this on", "plate's full", "revisit"], "confidence": "medium" },
+    "hedging": { "description": "States the constraint plainly without over-hedging.", "evidence": ["I can't take this on right now"], "confidence": "medium" }
+  },
+  "draftingGuidance": {
+    "prefer": ["lead with the clear answer", "explain the constraint briefly", "offer future alternatives"],
+    "avoid": ["apologetic hedging", "vague excuses"],
+    "strategyNotes": ["When declining, pair it with a concrete future window."]
+  },
+  "examples": [
+    {
+      "generic": "I am currently unable to assist with this request due to my workload.",
+      "inVoice": "I can't take this on right now — my plate's full through Friday. Happy to revisit next week if it's still open.",
+      "rationale": "Direct refusal with specific constraint and a checkable future offer, rather than a generic inability statement."
+    }
+  ],
+  "limits": ["Do not fabricate scheduling availability not present in the supplied sources."],
+  "customBlocklist": [
+    { "term": "unfortunately", "severity": "soft", "reason": "Unnecessary softening before direct statements." }
+  ],
+  "sources": [
+    { "type": "elicited", "title": "Elicitation: decline-request", "date": "2026-07-17", "text": "I can't take this on right now — my plate's full through Friday. Happy to revisit next week if it's still open." }
+  ]
+}

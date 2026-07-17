@@ -105,6 +105,12 @@
           "scenarioId": { "type": "string" },
           "date": { "type": "string" },
           "text": { "type": "string" }
+        },
+        "if": {
+          "properties": { "type": { "const": "elicited" } }
+        },
+        "then": {
+          "required": ["scenarioId"]
         }
       }
     }
