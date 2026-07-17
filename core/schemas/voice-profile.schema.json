@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/commrelayunit/voice-letter/core/schemas/voice-profile.schema.json",
+  "title": "VoiceProfile",
+  "type": "object",
+  "required": [
+    "profileName",
+    "version",
+    "sampleSummary",
+    "traits",
+    "draftingGuidance",
+    "examples",
+    "limits",
+    "customBlocklist",
+    "sources"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "profileName": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "const": "0.2.0" },
+    "sampleSummary": {
+      "type": "object",
+      "required": ["sampleCount", "genres", "confidence", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "sampleCount": { "type": "integer", "minimum": 0 },
+        "genres": { "type": "array", "items": { "type": "string" } },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+        "notes": { "type": "string" },
+        "sources": {
+          "type": "object",
+          "required": ["samples", "elicited"],
+          "additionalProperties": false,
+          "properties": {
+            "samples": { "type": "integer", "minimum": 0 },
+            "elicited": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "traits": {
+      "type": "object",
+      "required": [
+        "tone", "sentenceRhythm", "paragraphStructure", "directness",
+        "evidenceStyle", "transitions", "lexicon", "hedging"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "tone": { "$ref": "#/$defs/observedTrait" },
+        "sentenceRhythm": { "$ref": "#/$defs/observedTrait" },
+        "paragraphStructure": { "$ref": "#/$defs/observedTrait" },
+        "directness": { "$ref": "#/$defs/observedTrait" },
+        "evidenceStyle": { "$ref": "#/$defs/observedTrait" },
+        "transitions": { "$ref": "#/$defs/observedTrait" },
+        "lexicon": { "$ref": "#/$defs/observedTrait" },
+        "hedging": { "$ref": "#/$defs/observedTrait" }
+      }
+    },
+    "draftingGuidance": {
+      "type": "object",
+      "required": ["prefer", "avoid", "strategyNotes"],
+      "additionalProperties": false,
+      "properties": {
+        "prefer": { "type": "array", "items": { "type": "string" } },
+        "avoid": { "type": "array", "items": { "type": "string" } },
+        "strategyNotes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["generic", "inVoice", "rationale"],
+        "additionalProperties": false,
+        "properties": {
+          "generic": { "type": "string" },
+          "inVoice": { "type": "string" },
+          "rationale": { "type": "string" }
+        }
+      }
+    },
+    "limits": { "type": "array", "items": { "type": "string" } },
+    "customBlocklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["term", "severity", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "term": { "type": "string" },
+          "severity": { "type": "string", "enum": ["hard", "soft", "style"] },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "title", "date", "text"],
+        "additionalProperties": false,
+        "properties": {
+          "type": { "type": "string", "enum": ["sample", "elicited"] },
+          "title": { "type": "string" },
+          "scenarioId": { "type": "string" },
+          "date": { "type": "string" },
+          "text": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "observedTrait": {
+      "type": "object",
+      "required": ["description", "evidence", "confidence"],
+      "additionalProperties": false,
+      "properties": {
+        "description": { "type": "string" },
+        "evidence": { "type": "array", "items": { "type": "string" } },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+      }
+    }
+  }
+}

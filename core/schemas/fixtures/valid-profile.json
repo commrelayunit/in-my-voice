@@ -1,0 +1,40 @@
+{
+  "profileName": "default",
+  "version": "0.2.0",
+  "sampleSummary": {
+    "sampleCount": 1,
+    "genres": ["email"],
+    "confidence": "medium",
+    "notes": "Seed fixture for schema validation, not a real profile.",
+    "sources": { "samples": 1, "elicited": 0 }
+  },
+  "traits": {
+    "tone": { "description": "Warm but direct.", "evidence": ["Thanks for flagging this — I'll fix it today."], "confidence": "medium" },
+    "sentenceRhythm": { "description": "Short declaratives mixed with one longer explanatory sentence per paragraph.", "evidence": ["It broke. Here's why, and here's the fix."], "confidence": "medium" },
+    "paragraphStructure": { "description": "Two to three sentence paragraphs, one idea each.", "evidence": [], "confidence": "low" },
+    "directness": { "description": "States the ask or the answer first, context after.", "evidence": ["No, I can't take this on this sprint."], "confidence": "high" },
+    "evidenceStyle": { "description": "Backs claims with a specific example rather than a general statement.", "evidence": [], "confidence": "low" },
+    "transitions": { "description": "Uses \"so\" and \"which means\" rather than \"furthermore\"/\"moreover\".", "evidence": [], "confidence": "medium" },
+    "lexicon": { "description": "Plain word choices, avoids corporate jargon.", "evidence": [], "confidence": "medium" },
+    "hedging": { "description": "States uncertainty plainly (\"not sure yet\") instead of stacking hedges.", "evidence": [], "confidence": "low" }
+  },
+  "draftingGuidance": {
+    "prefer": ["short declarative openers", "concrete examples over general claims"],
+    "avoid": ["corporate jargon", "stacked hedging"],
+    "strategyNotes": ["Lead with the concrete match to the ask before any framing."]
+  },
+  "examples": [
+    {
+      "generic": "I am confident that my skills and experience make me a strong candidate.",
+      "inVoice": "I've shipped three of these end to end, most recently the Q2 migration.",
+      "rationale": "Replaces an unsupported confidence claim with a named, checkable result."
+    }
+  ],
+  "limits": ["Do not fabricate employment history or credentials not present in the supplied sources."],
+  "customBlocklist": [
+    { "term": "synergy", "severity": "soft", "reason": "Never appears in any supplied sample; reads as corporate filler." }
+  ],
+  "sources": [
+    { "type": "sample", "title": "Slack message to teammate", "date": "2026-06-02", "text": "No, I can't take this on this sprint. Happy to look at it next week if it's still open." }
+  ]
+}
