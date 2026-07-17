@@ -94,11 +94,13 @@ Restart opencode to load the skill.
 git clone https://github.com/commrelayunit/voice-letter.git ~/tools/voice-letter
 ```
 
-Then reference `~/tools/voice-letter/AGENTS.md` from your tool's rules UI, or symlink/copy the whole clone (not just the file) into your project if your tool expects `AGENTS.md` at the project root:
+Then reference `~/tools/voice-letter/AGENTS.md` from your tool's rules UI, or symlink the whole clone (not just the file) into your project if your tool expects `AGENTS.md` at the project root — symlinking `AGENTS.md` alone breaks its relative paths into `core/`:
 
 ```sh
-ln -s ~/tools/voice-letter/AGENTS.md ./AGENTS.md
+ln -s ~/tools/voice-letter ./voice-letter-tools
 ```
+
+Then point your tool's rules config at `./voice-letter-tools/AGENTS.md`.
 
 ### Any harness, manual
 
