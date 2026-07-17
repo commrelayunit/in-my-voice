@@ -12,10 +12,10 @@ Scenario prompts used by `core/flows/capture-flow.md` to fill trait gaps that sa
 | How do you open and close an email to someone you don't know well? | greeting/sign-off convention (feeds tone, lexicon) |
 | Describe a mistake you made and what you did about it. | directness, hedging |
 
-Rhythm, paragraph shape, transitions, and lexicon are never asked about directly — infer them passively from all collected text (samples + every elicited response), the same way sample analysis does.
+Rhythm, paragraph shape, and transitions are never asked about directly — infer them passively from all collected text (samples + every elicited response), the same way sample analysis does. Lexicon is inferred passively too, except for the narrow, reliable direct question listed below.
 
 A few direct questions are acceptable exceptions, because self-report is reliable for these specifically:
 - "Any words or phrases you always use, or specifically avoid?"
 - "Any greeting/sign-off you always use?" (only if the open/close scenario above wasn't already answered)
 
-Never ask direct questions for tone, directness, hedging, or evidence style — always elicit real text instead.
+Never ask direct questions for tone, directness, hedging, or evidenceStyle — always elicit real text instead.
