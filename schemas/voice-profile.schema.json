@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/commrelayunit/voice-letter/schemas/voice-profile.schema.json",
+  "title": "VoiceProfile",
+  "type": "object",
+  "required": [
+    "version",
+    "sampleSummary",
+    "traits",
+    "draftingGuidance",
+    "examples",
+    "limits"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "sampleSummary": {
+      "type": "object",
+      "required": ["sampleCount", "genres", "confidence"],
+      "additionalProperties": false,
+      "properties": {
+        "sampleCount": { "type": "integer", "minimum": 1 },
+        "genres": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "traits": {
+      "type": "object",
+      "required": [
+        "tone",
+        "sentenceRhythm",
+        "paragraphStructure",
+        "directness",
+        "evidenceStyle",
+        "transitions",
+        "lexicon",
+        "hedging"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "tone": { "$ref": "#/$defs/observedTrait" },
+        "sentenceRhythm": { "$ref": "#/$defs/observedTrait" },
+        "paragraphStructure": { "$ref": "#/$defs/observedTrait" },
+        "directness": { "$ref": "#/$defs/observedTrait" },
+        "evidenceStyle": { "$ref": "#/$defs/observedTrait" },
+        "transitions": { "$ref": "#/$defs/observedTrait" },
+        "lexicon": { "$ref": "#/$defs/observedTrait" },
+        "hedging": { "$ref": "#/$defs/observedTrait" }
+      }
+    },
+    "draftingGuidance": {
+      "type": "object",
+      "required": ["prefer", "avoid", "coverLetterStrategy"],
+      "additionalProperties": false,
+      "properties": {
+        "prefer": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "avoid": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "coverLetterStrategy": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["generic", "inVoice", "rationale"],
+        "additionalProperties": false,
+        "properties": {
+          "generic": { "type": "string" },
+          "inVoice": { "type": "string" },
+          "rationale": { "type": "string" }
+        }
+      }
+    },
+    "limits": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "$defs": {
+    "observedTrait": {
+      "type": "object",
+      "required": ["description", "evidence", "confidence"],
+      "additionalProperties": false,
+      "properties": {
+        "description": { "type": "string" },
+        "evidence": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        }
+      }
+    }
+  }
+}
+
