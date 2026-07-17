@@ -38,27 +38,39 @@ Use the HTTPS URL, not the `org/repo` shorthand — the shorthand clones over SS
 
 ### Codex
 
-Add to your Codex plugin marketplace configuration (`~/.agents/plugins/marketplace.json` or project `.agents/plugins/marketplace.json`):
+Install it as a personal Codex plugin by cloning the repo under `~/plugins/`:
+
+```sh
+mkdir -p ~/plugins ~/.agents/plugins
+git clone https://github.com/commrelayunit/in-my-voice.git ~/plugins/in-my-voice
+```
+
+Then add this entry to `~/.agents/plugins/marketplace.json`:
 
 ```json
 {
-  "name": "in-my-voice",
-  "source": { "source": "github", "repo": "commrelayunit/in-my-voice" },
-  "policy": { "installation": "AVAILABLE", "authentication": "NONE" },
-  "category": "Writing"
+  "name": "local",
+  "interface": {
+    "displayName": "Local Plugins"
+  },
+  "plugins": [
+    {
+      "name": "in-my-voice",
+      "source": {
+        "source": "local",
+        "path": "./plugins/in-my-voice"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Writing"
+    }
+  ]
 }
 ```
 
-This repo ships its own `.agents/plugins/marketplace.json`, so pointing Codex at a local clone works too:
-
-```json
-{
-  "name": "in-my-voice",
-  "source": { "source": "local", "path": "~/plugins/in-my-voice" },
-  "policy": { "installation": "AVAILABLE", "authentication": "NONE" },
-  "category": "Writing"
-}
-```
+If you already have a personal marketplace file, append only the `plugins[]` entry. Restart Codex after changing marketplace configuration.
 
 Manifest: `.codex-plugin/plugin.json` — instructions: `AGENTS.md`.
 

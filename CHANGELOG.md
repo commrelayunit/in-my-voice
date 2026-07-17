@@ -5,6 +5,17 @@ All notable changes to `in-my-voice` are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this
 project uses [Semantic Versioning](https://semver.org/).
 
+## [0.2.3] - 2026-07-17
+
+### Changed
+- Added Codex plugin interface metadata so the plugin validates cleanly for
+  Codex discovery and presentation.
+- Corrected Codex README install instructions to use the documented personal
+  marketplace layout: `~/.agents/plugins/marketplace.json` with local source
+  path `./plugins/in-my-voice`.
+- Updated the shipped Codex marketplace manifest to use a local source path for
+  this plugin repo.
+
 ## [0.2.2] - 2026-07-17
 
 ### Changed

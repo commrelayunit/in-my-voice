@@ -3,14 +3,14 @@
   "owner": { "name": "commrelayunit" },
   "metadata": {
     "description": "Write in your own captured voice: draft anything from a personal voice profile and flag generic AI-sounding phrasing.",
-    "version": "0.2.2"
+    "version": "0.2.3"
   },
   "plugins": [
     {
       "name": "in-my-voice",
       "description": "Write in your own captured voice: draft anything (cover letters, emails, posts, essays) from a personal voice profile, and flag generic AI-sounding phrasing before you send it.",
       "source": "./",
-      "version": "0.2.2"
+      "version": "0.2.3"
     }
   ]
 }
