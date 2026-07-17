@@ -26,7 +26,7 @@ For each gap, pick a matching scenario from `core/elicitation-bank.md` and ask t
 
 Append each response as a `sources` entry with `"type": "elicited"` and the matching `scenarioId`.
 
-A few direct questions are fine where self-report is reliable (see the exceptions listed in `core/elicitation-bank.md`) — but never for tone, directness, hedging, or evidence style.
+A few direct questions are fine where self-report is reliable (see the exceptions listed in `core/elicitation-bank.md`) — but never for `tone`, `directness`, `hedging`, or `evidenceStyle`.
 
 ## Step 6: Re-run trait inference
 
