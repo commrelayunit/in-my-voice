@@ -97,19 +97,49 @@ No CLI layer is needed (unlike refhub) — voice-letter has no external API;
 its only I/O is reading/writing local profile JSON files, which every one of
 these agents can already do with its own file tools.
 
-### Blocklist (three layers)
+### Blocklist (three layers, additive-risk model)
 
 1. `core/blocklist/ai-tells-baseline.md` — repo-maintained, general
    AI-giveaway terms and structural patterns. Git-tracked, shared across
-   every profile and every future adapter.
+   every profile and every future adapter. **Seeded from the existing
+   `generated-text-giveaways.md` draft at the repo root** (moved into place
+   during implementation), which already defines the model this design
+   adopts wholesale rather than reinventing:
+   - six categories, broad to narrow: (1) document/paragraph flow, (2)
+     paragraph-level rhetorical moves, (3) sentence structure/rhythm, (4)
+     phrase templates, (5) claims/trait words, (6) individual words
+   - each pattern tagged **hard block** (replaces evidence with an
+     unsupported claim), **soft warning** (generic/over-polished but
+     context-dependent), or **style review** (only suspicious if repeated or
+     voice-mismatched), each with a stated false-positive risk
+   - evidence exceptions: don't flag a phrase that appears naturally in the
+     author's own samples unless it's still weakening the piece; reduce risk
+     when the sentence has concrete evidence (named project, metric, result,
+     etc.); increase risk when a paragraph has none
+   - an additive severity score (+3 unevidenced hard-block phrase, +2
+     soft-warning in opener/closer/topic sentence, +2 evidence-free body
+     paragraph, +1 repeated template, -2 phrase matches the profile's
+     `draftingGuidance.prefer`, -2 sentence has concrete evidence) against
+     thresholds (0-2 no issue, 3-5 style review, 6-8 revise before final, 9+
+     regenerate / run a focused evidence-grounding pass)
 2. `core/blocklist/custom-terms.md` — your own extensible list of flagged
-   terms, same format as the baseline. Git-tracked (it's just words, not
-   sensitive), hand-edited directly, applies globally across every profile.
+   terms, same category/severity/evidence-exception format as the baseline.
+   Git-tracked (it's just words, not sensitive), hand-edited directly,
+   applies globally across every profile.
 3. Per-profile `customBlocklist` field embedded in each profile's JSON —
    stays out of git since that file also holds raw personal writing samples.
    Layers on top of (1) and (2) for that specific voice.
 
-The revise flow merges all three during the AI-tells pass.
+**Genre scoping**: categories 1 (document/paragraph flow) and the
+cover-letter-opener/career-summary-wrapper patterns in category 4 are
+application-genre-specific — they'd misfire on a casual email or a social
+post. They apply only when `WRITING_GOAL` (from the draft flow) is an
+application/persuasive genre. Categories 2, 3, 5, and 6 (rhetorical moves,
+sentence rhythm, trait words, individual words) are genre-agnostic and always
+apply.
+
+The revise flow merges all three layers and runs the additive-risk scoring
+during the AI-tells pass.
 
 ### Profile storage
 
@@ -188,28 +218,25 @@ Two passes over the draft:
 
 1. **Voice-fidelity pass** — same as before: checks rhythm, paragraph
    structure, transitions, lexicon against the profile.
-2. **AI-tells pass** — checks the draft against the three blocklist layers
-   described above:
-   - `core/blocklist/ai-tells-baseline.md` (repo-maintained: stock phrases
-     like "delve," "in today's fast-paced world," "testament to," "boasts,"
-     "seamless," "leverage," "it's worth noting"; structural tics like
-     rule-of-three lists, overly symmetric paragraph lengths, em-dash
-     overuse, hedge-stacking "I believe/I think," suspiciously neat
-     conclusions; and a sentence/paragraph-length variance check, since real
-     human text is less uniform than typical LLM output)
-   - `core/blocklist/custom-terms.md` (your own git-tracked additions, applies globally)
-   - the active profile's `customBlocklist` field (per-profile additions)
+2. **AI-tells pass** — runs the additive-risk model from the "Blocklist"
+   section above across all three layers, broad to narrow (document/paragraph
+   flow → rhetorical moves → sentence rhythm → phrase templates → trait words
+   → individual words), applying genre scoping and evidence exceptions, and
+   computes the total score against the 0-2 / 3-5 / 6-8 / 9+ thresholds.
 
 Output: `revised_letter`, `change_log`, `remaining_risks`, and
-`ai_tells_flagged` (which layer each flagged term/pattern came from).
+`ai_tells_flagged` — a list of `{category, pattern, layer, severity, score,
+rationale}` plus the total score and its threshold band.
 
 ## Schema Changes (`core/schemas/voice-profile.schema.json`, bump to 0.2.0)
 
 - add required `profileName`
 - keep the 8 `traits` dimensions unchanged (already genre-neutral)
 - rename `draftingGuidance.coverLetterStrategy` → `draftingGuidance.strategyNotes`
-- add `customBlocklist`: array of `{term, reason}` — per-profile, user-curated
-  giveaway terms, distinct from the inferred `draftingGuidance.avoid`
+- add `customBlocklist`: array of `{term, severity: "hard" | "soft" |
+  "style", reason}` — per-profile, user-curated giveaway terms in the same
+  severity model as `core/blocklist/ai-tells-baseline.md`, distinct from the
+  inferred `draftingGuidance.avoid`
 - add `sources`: array of `{type: "sample" | "elicited", title, scenarioId?,
   date, text}` — raw provenance for future gap-aware updates
 - add `sampleSummary.sources: {samples: n, elicited: n}` alongside the
