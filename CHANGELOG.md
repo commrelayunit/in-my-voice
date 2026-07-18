@@ -5,6 +5,20 @@ All notable changes to `in-my-voice` are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this
 project uses [Semantic Versioning](https://semver.org/).
 
+## [0.2.6] - 2026-07-18
+
+### Added
+- Added optional hierarchy-aware profile fields for `sources[].samplePath`,
+  `sampleSummary.hierarchy`, `sampleSummary.hierarchyNotes`, and
+  `contextSlices` while preserving compatibility with existing `0.2.0`
+  profiles.
+- Added sample-organization and guided-profile-setup flows for planning profile
+  hierarchies, capture plans, validation, and first test drafts.
+
+### Changed
+- Capture, draft, and revise flows now prefer relevant context slices for mixed
+  profiles and document fallback behavior for legacy flat profiles.
+
 ## [0.2.5] - 2026-07-17
 
 ### Changed

@@ -1,0 +1,41 @@
+{
+  "profileName": "bad-path-fixture",
+  "version": "0.2.0",
+  "sampleSummary": {
+    "sampleCount": 1,
+    "genres": ["email"],
+    "confidence": "low",
+    "notes": "Fixture with an invalid samplePath containing uppercase letters and spaces.",
+    "sources": { "samples": 1, "elicited": 0 },
+    "hierarchy": [
+      {
+        "path": "Email Formal",
+        "sampleCount": 1,
+        "confidence": "low"
+      }
+    ]
+  },
+  "traits": {
+    "tone": { "description": "placeholder", "evidence": [], "confidence": "low" },
+    "sentenceRhythm": { "description": "placeholder", "evidence": [], "confidence": "low" },
+    "paragraphStructure": { "description": "placeholder", "evidence": [], "confidence": "low" },
+    "directness": { "description": "placeholder", "evidence": [], "confidence": "low" },
+    "evidenceStyle": { "description": "placeholder", "evidence": [], "confidence": "low" },
+    "transitions": { "description": "placeholder", "evidence": [], "confidence": "low" },
+    "lexicon": { "description": "placeholder", "evidence": [], "confidence": "low" },
+    "hedging": { "description": "placeholder", "evidence": [], "confidence": "low" }
+  },
+  "draftingGuidance": { "prefer": [], "avoid": [], "strategyNotes": [] },
+  "examples": [],
+  "limits": [],
+  "customBlocklist": [],
+  "sources": [
+    {
+      "type": "sample",
+      "title": "Bad path sample",
+      "samplePath": "Email Formal",
+      "date": "2026-07-18",
+      "text": "Please send comments by Friday."
+    }
+  ]
+}

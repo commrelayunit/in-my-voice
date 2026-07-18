@@ -35,7 +35,12 @@
             "samples": { "type": "integer", "minimum": 0 },
             "elicited": { "type": "integer", "minimum": 0 }
           }
-        }
+        },
+        "hierarchy": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/sampleContextSummary" }
+        },
+        "hierarchyNotes": { "type": "array", "items": { "type": "string" } }
       }
     },
     "traits": {
@@ -57,14 +62,7 @@
       }
     },
     "draftingGuidance": {
-      "type": "object",
-      "required": ["prefer", "avoid", "strategyNotes"],
-      "additionalProperties": false,
-      "properties": {
-        "prefer": { "type": "array", "items": { "type": "string" } },
-        "avoid": { "type": "array", "items": { "type": "string" } },
-        "strategyNotes": { "type": "array", "items": { "type": "string" } }
-      }
+      "$ref": "#/$defs/draftingGuidance"
     },
     "examples": {
       "type": "array",
@@ -93,6 +91,16 @@
         }
       }
     },
+    "contextSlices": {
+      "type": "object",
+      "description": "Optional hierarchy-aware voice slices keyed by sample path, e.g. academic/paper/abstract or email/formal/follow-up. Omit for legacy flat profiles.",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(?:-[a-z0-9]+)*(?:/[a-z0-9]+(?:-[a-z0-9]+)*)*$": {
+          "$ref": "#/$defs/contextSlice"
+        }
+      }
+    },
     "sources": {
       "type": "array",
       "items": {
@@ -101,8 +109,13 @@
         "additionalProperties": false,
         "properties": {
           "type": { "type": "string", "enum": ["sample", "elicited"] },
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9_.:-]+$" },
           "title": { "type": "string" },
           "scenarioId": { "type": "string" },
+          "samplePath": { "$ref": "#/$defs/samplePath" },
+          "audience": { "type": "string" },
+          "channel": { "type": "string" },
+          "notes": { "type": "string" },
           "date": { "type": "string" },
           "text": { "type": "string" }
         },
@@ -116,6 +129,21 @@
     }
   },
   "$defs": {
+    "samplePath": {
+      "type": "string",
+      "description": "Slash-separated writing context path such as academic/paper/abstract, email/formal/follow-up, or social/messenger/coordination.",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*(?:/[a-z0-9]+(?:-[a-z0-9]+)*)*$"
+    },
+    "draftingGuidance": {
+      "type": "object",
+      "required": ["prefer", "avoid", "strategyNotes"],
+      "additionalProperties": false,
+      "properties": {
+        "prefer": { "type": "array", "items": { "type": "string" } },
+        "avoid": { "type": "array", "items": { "type": "string" } },
+        "strategyNotes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
     "observedTrait": {
       "type": "object",
       "required": ["description", "evidence", "confidence"],
@@ -124,6 +152,62 @@
         "description": { "type": "string" },
         "evidence": { "type": "array", "items": { "type": "string" } },
         "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+      }
+    },
+    "sampleContextSummary": {
+      "type": "object",
+      "required": ["path", "sampleCount", "confidence"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "$ref": "#/$defs/samplePath" },
+        "sampleCount": { "type": "integer", "minimum": 0 },
+        "elicitedCount": { "type": "integer", "minimum": 0 },
+        "sourceRefs": { "type": "array", "items": { "type": "string" } },
+        "genres": { "type": "array", "items": { "type": "string" } },
+        "purpose": { "type": "string" },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+        "notes": { "type": "string" }
+      }
+    },
+    "contextSlice": {
+      "type": "object",
+      "required": ["path", "sampleCount", "confidence", "traits", "draftingGuidance"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "$ref": "#/$defs/samplePath" },
+        "sampleCount": { "type": "integer", "minimum": 0 },
+        "elicitedCount": { "type": "integer", "minimum": 0 },
+        "sourceRefs": { "type": "array", "items": { "type": "string" } },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+        "traits": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tone": { "$ref": "#/$defs/observedTrait" },
+            "sentenceRhythm": { "$ref": "#/$defs/observedTrait" },
+            "paragraphStructure": { "$ref": "#/$defs/observedTrait" },
+            "directness": { "$ref": "#/$defs/observedTrait" },
+            "evidenceStyle": { "$ref": "#/$defs/observedTrait" },
+            "transitions": { "$ref": "#/$defs/observedTrait" },
+            "lexicon": { "$ref": "#/$defs/observedTrait" },
+            "hedging": { "$ref": "#/$defs/observedTrait" }
+          }
+        },
+        "draftingGuidance": { "$ref": "#/$defs/draftingGuidance" },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["generic", "inVoice", "rationale"],
+            "additionalProperties": false,
+            "properties": {
+              "generic": { "type": "string" },
+              "inVoice": { "type": "string" },
+              "rationale": { "type": "string" }
+            }
+          }
+        },
+        "notes": { "type": "string" }
       }
     }
   }

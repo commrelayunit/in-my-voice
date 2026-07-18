@@ -19,6 +19,14 @@ If no profile name is given and more than one exists, ask which to use. If none 
 
 Read `../../core/flows/capture-flow.md` and follow it exactly. It references `../../core/elicitation-bank.md` for the interactive scenario bank.
 
+### Organize writing samples
+
+Use when the user asks to organize samples, plan a profile taxonomy, structure writing samples, or audit a profile's sample hierarchy. Read `../../core/flows/organize-samples-flow.md` and follow it. It can work from a rough inventory without requiring raw private samples, and it produces a capture plan for `capture-flow.md`.
+
+### Guided profile setup
+
+Use when the user asks to build a voice profile from scratch, walk through setup, collect samples, or start guided onboarding. Read `../../core/flows/guided-profile-setup-flow.md` and follow it. It coordinates sample organization, capture, validation, a short test draft, and a next-step plan.
+
 ### Draft something
 
 Read `../../core/flows/draft-flow.md` and follow it, using the profile loaded above.
