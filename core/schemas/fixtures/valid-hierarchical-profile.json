@@ -1,0 +1,151 @@
+{
+  "profileName": "mixed-work-fixture",
+  "version": "0.2.0",
+  "sampleSummary": {
+    "sampleCount": 3,
+    "genres": ["academic", "email", "social"],
+    "confidence": "medium",
+    "notes": "Fixture for hierarchy-aware profiles. Not a real profile.",
+    "sources": { "samples": 3, "elicited": 0 },
+    "hierarchy": [
+      {
+        "path": "academic/paper/abstract",
+        "sampleCount": 1,
+        "sourceRefs": ["src_001"],
+        "purpose": "Dense research framing and contribution statements",
+        "confidence": "low",
+        "notes": "One abstract-like sample seeds the branch but needs more academic sections."
+      },
+      {
+        "path": "email/formal/follow-up",
+        "sampleCount": 1,
+        "sourceRefs": ["src_002"],
+        "purpose": "Polite professional follow-up with a clear ask",
+        "confidence": "medium"
+      },
+      {
+        "path": "social/messenger/coordination",
+        "sampleCount": 1,
+        "sourceRefs": ["src_003"],
+        "purpose": "Short informal coordination replies",
+        "confidence": "low"
+      }
+    ],
+    "hierarchyNotes": [
+      "Existing flat 0.2.0 profiles can omit these fields.",
+      "Use contextSlices only where samples show reusable differences."
+    ]
+  },
+  "traits": {
+    "tone": { "description": "Clear and practical, with warmth when the context allows it.", "evidence": ["Could we move this to Thursday morning?"], "confidence": "medium" },
+    "sentenceRhythm": { "description": "Mixes concise lead sentences with one explanatory sentence when needed.", "evidence": ["The prototype makes interruptions visible before they become coordination debt."], "confidence": "medium" },
+    "paragraphStructure": { "description": "Leads with the point, then adds one reason or next step.", "evidence": ["Could we move this to Thursday morning? I need one more pass on the notes before we meet."], "confidence": "medium" },
+    "directness": { "description": "States the request or contribution plainly.", "evidence": ["Could we move this to Thursday morning?"], "confidence": "high" },
+    "evidenceStyle": { "description": "Uses concrete artifacts or timing details rather than broad claims.", "evidence": ["prototype", "one more pass on the notes"], "confidence": "medium" },
+    "transitions": { "description": "Uses light causal links rather than formal transition stacks.", "evidence": ["so I can send it before lunch"], "confidence": "medium" },
+    "lexicon": { "description": "Plain verbs and concrete nouns; avoids inflated praise.", "evidence": ["send", "move", "prototype"], "confidence": "medium" },
+    "hedging": { "description": "Uses modest qualifiers when evidence is preliminary.", "evidence": ["early results suggest"], "confidence": "medium" }
+  },
+  "draftingGuidance": {
+    "prefer": ["lead with the concrete ask or contribution", "name the artifact or timing constraint"],
+    "avoid": ["generic enthusiasm", "inflated impact language"],
+    "strategyNotes": ["Pick the matching context slice before borrowing rhythm or lexicon from other branches."]
+  },
+  "examples": [
+    {
+      "generic": "This work has the potential to drive meaningful impact across teams.",
+      "inVoice": "The prototype makes interruptions visible before they become coordination debt.",
+      "rationale": "Replaces broad impact language with a concrete mechanism."
+    }
+  ],
+  "limits": ["Do not fabricate publications, roles, or sample history not present in supplied evidence."],
+  "customBlocklist": [
+    { "term": "drive meaningful impact", "severity": "soft", "reason": "Too broad unless paired with a concrete mechanism." }
+  ],
+  "contextSlices": {
+    "academic/paper/abstract": {
+      "path": "academic/paper/abstract",
+      "sampleCount": 1,
+      "sourceRefs": ["src_001"],
+      "confidence": "low",
+      "traits": {
+        "tone": { "description": "Measured and contribution-focused.", "evidence": ["early results suggest"], "confidence": "low" },
+        "evidenceStyle": { "description": "Frames a problem, method, and contribution in sequence.", "evidence": ["We study...", "We introduce..."], "confidence": "low" },
+        "hedging": { "description": "Uses cautious claims for preliminary evidence.", "evidence": ["early results suggest"], "confidence": "medium" }
+      },
+      "draftingGuidance": {
+        "prefer": ["state problem, method, and contribution", "keep claims bounded"],
+        "avoid": ["public-announcement excitement", "casual scheduling language"],
+        "strategyNotes": ["Use this branch for abstracts and short research summaries only."]
+      },
+      "examples": [
+        {
+          "generic": "This paper explores an important and timely problem.",
+          "inVoice": "We study how interruptions become coordination debt in small research teams.",
+          "rationale": "Names the phenomenon instead of praising the topic."
+        }
+      ]
+    },
+    "email/formal/follow-up": {
+      "path": "email/formal/follow-up",
+      "sampleCount": 1,
+      "sourceRefs": ["src_002"],
+      "confidence": "medium",
+      "traits": {
+        "tone": { "description": "Polite and direct without decorative enthusiasm.", "evidence": ["I wanted to follow up on the draft I sent Tuesday."], "confidence": "medium" },
+        "directness": { "description": "Makes the next requested action explicit.", "evidence": ["Could you send comments by Friday?"], "confidence": "high" },
+        "paragraphStructure": { "description": "Two short paragraphs: context, then ask.", "evidence": ["I wanted to follow up...", "Could you send comments by Friday?"], "confidence": "medium" }
+      },
+      "draftingGuidance": {
+        "prefer": ["brief context before the ask", "specific dates or next actions"],
+        "avoid": ["checking in with no concrete request", "over-apologizing"],
+        "strategyNotes": ["Use for formal email follow-ups and first professional replies."]
+      }
+    },
+    "social/messenger/coordination": {
+      "path": "social/messenger/coordination",
+      "sampleCount": 1,
+      "sourceRefs": ["src_003"],
+      "confidence": "low",
+      "traits": {
+        "tone": { "description": "Casual, cooperative, and compact.", "evidence": ["Thursday morning works better on my side."], "confidence": "low" },
+        "sentenceRhythm": { "description": "One or two short sentences.", "evidence": ["Could we move this to Thursday morning? I need one more pass on the notes before we meet."], "confidence": "medium" },
+        "lexicon": { "description": "Everyday scheduling language.", "evidence": ["works better", "move this"], "confidence": "medium" }
+      },
+      "draftingGuidance": {
+        "prefer": ["short direct replies", "plain scheduling constraints"],
+        "avoid": ["formal email openings", "academic framing"],
+        "strategyNotes": ["Use for short informal coordination, not public social posts."]
+      }
+    }
+  },
+  "sources": [
+    {
+      "type": "sample",
+      "id": "src_001",
+      "title": "Fixture abstract excerpt",
+      "samplePath": "academic/paper/abstract",
+      "audience": "research readers",
+      "date": "2026-07-18",
+      "text": "We study how interruptions become coordination debt in small research teams. We introduce a lightweight annotation workflow and show that early results suggest clearer handoffs after meetings."
+    },
+    {
+      "type": "sample",
+      "id": "src_002",
+      "title": "Fixture formal follow-up",
+      "samplePath": "email/formal/follow-up",
+      "audience": "external collaborator",
+      "date": "2026-07-18",
+      "text": "I wanted to follow up on the draft I sent Tuesday. Could you send comments by Friday so I can fold them into the next version?"
+    },
+    {
+      "type": "sample",
+      "id": "src_003",
+      "title": "Fixture coordination reply",
+      "samplePath": "social/messenger/coordination",
+      "audience": "teammate",
+      "date": "2026-07-18",
+      "text": "Could we move this to Thursday morning? I need one more pass on the notes before we meet."
+    }
+  ]
+}

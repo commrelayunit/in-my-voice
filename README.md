@@ -2,7 +2,7 @@
 
 In My Voice is a skill for writing anything — cover letters, emails, posts, essays — in your own captured voice, and catching generic AI-sounding phrasing before it ships.
 
-Voice capture is adaptive: paste writing samples if you have them, and/or answer a handful of short prompts in your own words (never self-reported style claims — the skill infers your voice from what you actually write). Drafting takes a goal, audience, and target length. Revision runs a voice-fidelity check plus an additive-risk scan against a layered, extensible blocklist of AI "tells."
+Voice capture is adaptive: paste writing samples if you have them, and/or answer a handful of short prompts in your own words (never self-reported style claims — the skill infers your voice from what you actually write). Profiles can organize samples into context paths such as `academic/paper/abstract`, `email/formal/follow-up`, or `social/messenger/coordination`, so drafting and revision use the relevant voice slice instead of averaging unrelated writing. Drafting takes a goal, audience, and target length. Revision runs a voice-fidelity check plus an additive-risk scan against a layered, extensible blocklist of AI "tells."
 
 ## Repository Layout
 
@@ -11,6 +11,8 @@ core/
   schemas/voice-profile.schema.json   # profile shape (v0.2.0)
   flows/
     capture-flow.md                   # build/update a profile: samples + elicitation
+    organize-samples-flow.md          # plan/audit profile sample hierarchy
+    guided-profile-setup-flow.md      # first-run setup: hierarchy + capture + validation
     draft-flow.md                     # draft anything from a profile
     revise-flow.md                    # voice fidelity + AI-tells pass
   elicitation-bank.md                 # interactive capture scenarios
@@ -141,9 +143,30 @@ Reference the skill file directly:
 
 ## Quick Start
 
-1. Ask the skill to capture (or update) a voice profile. Paste samples if you have them; answer the interactive prompts either way for anything samples couldn't confidently cover.
-2. Ask it to draft something, giving a goal, audience, and target length.
-3. Ask it to check the draft — it runs a voice-fidelity pass and an AI-tells pass, and reports a risk score with specific flags.
+1. First run: ask "build my voice profile" or "walk me through setting this up." The guided setup proposes a small hierarchy, captures available samples, validates the profile, and runs a short test draft.
+2. To prepare samples first, ask "organize my writing samples for a work profile." The organization flow can work from a rough inventory and returns a reusable capture plan.
+3. Ask the skill to capture (or update) a voice profile. Paste samples if you have them; answer the interactive prompts either way for anything samples couldn't confidently cover.
+4. Ask it to draft something, giving a goal, audience, and target length. Mixed profiles use the closest context slice by default.
+5. Ask it to check the draft — it runs a voice-fidelity pass against the relevant context and an AI-tells pass with a risk score.
+
+Example invocations:
+
+```text
+Build my voice profile for academic abstracts and formal research emails.
+Organize these sample titles into a voice profile taxonomy: two abstracts, one reviewer response, three formal follow-up emails, and a few short chat replies.
+Draft a formal follow-up email using my work profile.
+Check this LinkedIn post against my profile for generic AI-sounding phrasing.
+```
+
+## Profile Hierarchy
+
+The profile schema remains `version: "0.2.0"` and existing flat profiles still validate. New profiles may add optional hierarchy fields:
+
+- `sources[].samplePath` records where each sample belongs.
+- `sampleSummary.hierarchy` summarizes sample counts and confidence per path.
+- `contextSlices` stores context-specific trait and drafting guidance overrides.
+
+When updating an older flat profile, classify existing sources only with user confirmation. Otherwise leave them as global evidence and note the migration gap in `sampleSummary.hierarchyNotes`.
 
 ## Privacy Notes
 

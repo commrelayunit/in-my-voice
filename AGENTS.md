@@ -6,6 +6,8 @@ Agent-facing instructions for writing in a captured personal voice and catching 
 
 Apply whenever the user asks you to:
 - capture or update a personal voice profile, from writing samples, short elicitation answers, or both
+- organize writing samples, plan a profile taxonomy, structure writing samples, or audit a sample hierarchy
+- build a voice profile from scratch with guided setup or onboarding
 - draft anything (cover letter, email, post, essay, any writing task) in a captured voice
 - check an existing draft for generic/AI-sounding phrasing before sending it
 
@@ -20,6 +22,14 @@ If no profile name is given and more than one exists, ask which to use. If none 
 ### Capture or update a profile
 
 Read `core/flows/capture-flow.md` and follow it exactly. It references `core/elicitation-bank.md` for the interactive scenario bank.
+
+### Organize writing samples
+
+Read `core/flows/organize-samples-flow.md` and follow it. It can work from a rough sample inventory without requiring raw private samples, and it produces a concrete hierarchy/capture plan for `core/flows/capture-flow.md`.
+
+### Guided profile setup
+
+Read `core/flows/guided-profile-setup-flow.md` and follow it. It coordinates sample organization, capture, validation, a short test draft, and a next-step plan.
 
 ### Draft something
 
