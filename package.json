@@ -1,0 +1,52 @@
+{
+  "name": "in-my-voice",
+  "version": "0.2.8",
+  "description": "A Pi extension for captured-voice writing workflows.",
+  "author": "commrelayunit",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/commrelayunit/in-my-voice.git"
+  },
+  "homepage": "https://github.com/commrelayunit/in-my-voice#readme",
+  "bugs": "https://github.com/commrelayunit/in-my-voice/issues",
+  "type": "module",
+  "keywords": [
+    "pi",
+    "pi-package",
+    "pi-extension",
+    "writing",
+    "voice",
+    "revision"
+  ],
+  "files": [
+    "src",
+    "core",
+    "skills",
+    "AGENTS.md",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
+  },
+  "scripts": {
+    "typecheck": "tsc",
+    "test": "node --test",
+    "check": "npm run typecheck && npm test"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

@@ -5,6 +5,24 @@ All notable changes to `in-my-voice` are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this
 project uses [Semantic Versioning](https://semver.org/).
 
+## [0.2.8] - 2026-08-18
+
+### Added
+- Added a real Pi package surface with `package.json` metadata and
+  `pi.extensions` pointing at `src/index.ts`.
+- Added the `/imv` Pi command with completions for `profile`, `capture`,
+  `organize`, `draft`, and `revise`.
+- Added Pi extension tests covering package metadata, command registration,
+  profile selection, profile listing, flow surfacing, and atomic config writes.
+
+### Changed
+- `/imv profile` stores only the selected profile name in Pi config and lists
+  profiles from `~/.in-my-voice/profiles/*.json` without reading profile
+  contents.
+- `/imv capture`, `/imv organize`, `/imv draft`, and `/imv revise` now render
+  the authoritative `core/flows/*.md` files instead of forking workflow rules.
+- Bumped Claude and Codex plugin manifests for the public surface change.
+
 ## [0.2.7] - 2026-08-18
 
 ### Added

@@ -1,6 +1,6 @@
 # Pi Extension Plan
 
-Status: design note, not implemented.
+Status: first command-driven package surface implemented in `src/index.ts`.
 
 In My Voice already supports Claude Code, Codex, Gemini CLI, opencode, and generic rule-loading harnesses through `skills/in-my-voice/SKILL.md` and `AGENTS.md`. A Pi package should be a real extension, not just a copied rules file, because Pi can expose commands, model selection, session entries, and project/global configuration.
 
