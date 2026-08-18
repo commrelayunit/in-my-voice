@@ -21,7 +21,10 @@ core/
     custom-terms.md                   # your own extensible additions
 skills/in-my-voice/SKILL.md           # Claude Code entry point
 AGENTS.md                             # generic-harness entry point
-docs/pi-extension-plan.md             # planned Pi extension surface
+src/                                  # Pi extension source
+test/                                 # Pi extension package/command tests
+package.json                          # Pi package metadata
+docs/pi-extension-plan.md             # Pi extension design notes
 .claude-plugin/                       # Claude Code plugin + self-hosted marketplace
 .codex-plugin/                        # Codex plugin manifest
 .agents/plugins/                      # self-hosted Codex marketplace manifest
@@ -118,7 +121,37 @@ ln -s ~/tools/in-my-voice/skills/in-my-voice ~/.config/opencode/skills/in-my-voi
 
 Restart opencode to load the skill.
 
-### Cursor, Windsurf, Pi, and other generic harnesses
+### Pi
+
+This repo now includes a command-driven Pi package surface. `package.json`
+declares `pi.extensions: ["./src/index.ts"]`, and the extension registers:
+
+```text
+/imv profile
+/imv capture
+/imv organize
+/imv draft
+/imv revise
+```
+
+Clone the full repo, then install or load it as a local Pi package according to
+your Pi setup:
+
+```sh
+git clone https://github.com/commrelayunit/in-my-voice.git ~/tools/in-my-voice
+cd ~/tools/in-my-voice
+npm install
+```
+
+`/imv profile` lists profile filenames from
+`~/.in-my-voice/profiles/*.json` and stores only the selected profile name in Pi
+configuration. It does not read or display private profile contents.
+
+`/imv capture`, `/imv organize`, `/imv draft`, and `/imv revise` render the
+authoritative workflow documents from `core/flows/` so the Pi surface stays
+aligned with Claude, Codex, Gemini CLI, opencode, and generic harness usage.
+
+### Cursor, Windsurf, and other generic harnesses
 
 `AGENTS.md` also depends on the rest of the repo via relative paths (`core/flows/...`) — don't copy it alone. Clone the full repo, then point your tool's rules config at the real `AGENTS.md` path inside the clone:
 
@@ -133,8 +166,6 @@ ln -s ~/tools/in-my-voice ./in-my-voice-tools
 ```
 
 Then point your tool's rules config at `./in-my-voice-tools/AGENTS.md`.
-
-Pi extension status: there is not yet an installable Pi package. The intended package shape and command surface are sketched in `docs/pi-extension-plan.md`. The recommended first Pi surface is command-driven (`/imv profile`, `/imv capture`, `/imv organize`, `/imv draft`, `/imv revise`) rather than an always-on passive rewriter.
 
 ### Any harness, manual
 
