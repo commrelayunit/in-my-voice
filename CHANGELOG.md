@@ -5,6 +5,23 @@ All notable changes to `in-my-voice` are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this
 project uses [Semantic Versioning](https://semver.org/).
 
+## [0.2.7] - 2026-08-18
+
+### Added
+- Added SLYE-derived AI-tells guidance for plain-meaning rewrites, corporate
+  jargon and slogans, preamble leakage, and simplification that drops
+  constraints, caveats, literals, or Markdown/code structure.
+- Added `docs/pi-extension-plan.md` describing a future command-driven Pi
+  extension surface for profile selection, capture, organization, drafting, and
+  revision.
+
+### Changed
+- Revise flow now explicitly preserves target language, intentional language
+  mix, facts, literals, Markdown/code, conditions, qualifications, caveats, and
+  instructions while replacing clichés or jargon with plain meaning.
+- README now separates current generic Pi/rules usage from the planned Pi
+  package surface.
+
 ## [0.2.6] - 2026-07-18
 
 ### Added

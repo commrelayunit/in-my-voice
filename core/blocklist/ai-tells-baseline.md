@@ -167,6 +167,28 @@ Examples:
 
 Action: **hard block unless tied to concrete evidence**.
 
+### 2.5 Plain-Meaning Rewrite Needed
+
+Pattern:
+
+- the sentence uses a cliché, stock metaphor, slogan, corporate phrase, or filler phrase where a plain claim would be clearer
+- the language gestures at quality or momentum but does not say what changed, who did what, or why it matters
+
+Examples:
+
+- "move the needle"
+- "unlock value"
+- "take things to the next level"
+- "at the intersection of..."
+- "empower stakeholders"
+- "drive alignment"
+- "leverage synergies"
+- "world-class"
+
+Action: **soft warning**, escalating when the phrase carries the main claim. Replace with the phrase's plain meaning; do not lightly paraphrase the cliché into another cliché.
+
+Allowed context: quoted source text, brand copy being deliberately preserved, or an author voice profile that naturally uses the phrase and the phrase is still doing useful work.
+
 ## 3. Sentence Structure And Rhythm
 
 These patterns are weak alone but useful when repeated.
@@ -238,6 +260,21 @@ Pattern:
 
 Action: **style review**. Compare against the author's voice profile.
 
+### 3.6 Simplification That Deletes Meaning
+
+Pattern:
+
+- a revision makes a sentence shorter by dropping conditions, qualifications, instructions, constraints, claims, or caveats
+- a rewrite changes factual scope while trying to sound cleaner
+
+Examples:
+
+- removing "if feasible", "unless required", "before submitting", or "based on the supplied evidence"
+- turning a cautious claim into a certainty
+- deleting a deadline, path, command, URL, named artifact, number, or method
+
+Action: **hard block for revisions**. Simpler wording is good only when it preserves meaning and literals.
+
 ## 4. Phrase Templates
 
 These are reusable chunks that often sound generated or form-letter-like.
@@ -304,6 +341,19 @@ Examples:
 Action: **style review**.
 
 False-positive risk: high, especially in formal academic applications.
+
+### 4.6 Preamble And Label Leakage
+
+Examples:
+
+- "Here's a revised version:"
+- "Certainly - here is..."
+- "I've rewritten it to sound more natural:"
+- "Revised draft:"
+
+Action: **style review** for conversational answers and **hard block** when the requested output is a clean draft, replacement text, or final send-ready copy.
+
+Allowed context: when the user explicitly asks for commentary, alternatives, or an explanation before the draft.
 
 ## 5. Claims And Trait Words
 
@@ -402,6 +452,25 @@ Examples:
 
 Action: **soft warning**.
 
+### 6.4 Corporate Jargon And Slogans
+
+Examples:
+
+- "unlock"
+- "empower"
+- "leverage"
+- "stakeholders"
+- "synergy"
+- "alignment"
+- "scalable"
+- "world-class"
+- "best-in-class"
+- "future-proof"
+
+Action: **soft warning** unless the term is a real domain term in context. Ask what the sentence means in plain language.
+
+False-positive risk: high in management, grant, institutional, and product contexts. Penalize jargon clusters and evidence-free topic sentences, not one necessary term.
+
 ## 7. Implementation Shape For In My Voice
 
 ### 7.1 Suggested Severity Model
@@ -433,6 +502,8 @@ Work from broad to narrow:
 5. individual words
 
 For each flag, delete it, replace it with a concrete claim grounded in the evidence_map, or keep it with a reason if it appears in the author's voice profile or is required by the target opportunity.
+
+When revising, preserve every fact, name, number, path, URL, command, Markdown structure, code block, condition, qualification, and instruction. Preserve the draft's original language and intentional language mix unless the user explicitly asks for translation. Remove clichés, stock metaphors, corporate jargon, slogans, filler, and repetition by replacing them with their plain meaning.
 ```
 
 ## 8. Compact Block List
@@ -473,6 +544,12 @@ Soft warning:
 - "testament"
 - "tapestry"
 - "beacon"
+- "move the needle"
+- "unlock value"
+- "empower stakeholders"
+- "leverage synergies"
+- "world-class"
+- "best-in-class"
 
 Style review:
 
@@ -483,6 +560,8 @@ Style review:
 - repeated "Moreover", "Furthermore", "Additionally", "In conclusion"
 - nominalization stacks
 - over-neat paragraph balance
+- preamble or label leakage before clean replacement text
+- simplification that drops constraints, caveats, literals, or Markdown/code structure
 
 ## Sources
 

@@ -21,6 +21,7 @@ core/
     custom-terms.md                   # your own extensible additions
 skills/in-my-voice/SKILL.md           # Claude Code entry point
 AGENTS.md                             # generic-harness entry point
+docs/pi-extension-plan.md             # planned Pi extension surface
 .claude-plugin/                       # Claude Code plugin + self-hosted marketplace
 .codex-plugin/                        # Codex plugin manifest
 .agents/plugins/                      # self-hosted Codex marketplace manifest
@@ -132,6 +133,8 @@ ln -s ~/tools/in-my-voice ./in-my-voice-tools
 ```
 
 Then point your tool's rules config at `./in-my-voice-tools/AGENTS.md`.
+
+Pi extension status: there is not yet an installable Pi package. The intended package shape and command surface are sketched in `docs/pi-extension-plan.md`. The recommended first Pi surface is command-driven (`/imv profile`, `/imv capture`, `/imv organize`, `/imv draft`, `/imv revise`) rather than an always-on passive rewriter.
 
 ### Any harness, manual
 

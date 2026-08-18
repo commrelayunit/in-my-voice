@@ -35,6 +35,8 @@ Set `WRITING_SAMPLE_EXCERPTS` from the selected path or nearest context by defau
 
 Check the draft's rhythm, paragraph structure, transitions, and lexicon against the selected context slice, matching `WRITING_SAMPLE_EXCERPTS`, and then global `VOICE_PROFILE_JSON.traits` only for stable cross-context traits. Flag anywhere the draft drifts from the selected context without a good reason (e.g. defaulting to longer, more uniform sentences than the author ever writes in formal email).
 
+Preserve the draft's original language and intentional language mix unless the user explicitly asks for translation. A revision should make the draft more faithful and specific, not silently translate it because nearby context is in another language.
+
 ## Pass 2: AI-tells (additive risk)
 
 Load and merge three layers, broad to narrow:
@@ -58,6 +60,13 @@ Score additively per `ai-tells-baseline.md` §7.1:
 Total the score and classify: 0-2 no issue, 3-5 style review, 6-8 revise before final, 9+ regenerate or run a focused evidence-grounding pass.
 
 For each flag, either delete it, replace it with a concrete claim grounded in `evidence_map` (if supplied), or keep it with a stated reason (appears in the profile's preferred language, or required by the target audience or goal).
+
+When replacing flagged text:
+- preserve every fact, name, number, path, URL, command, Markdown structure, and fenced code block
+- preserve conditions, qualifications, caveats, and instructions
+- replace clichés, stock metaphors, corporate jargon, slogans, filler, and repetition with their plain meaning rather than a softer cliché
+- keep already-clear prose close to the original unless voice fidelity requires a change
+- do not add a label, preamble, or commentary before `revised_draft`
 
 ## Output
 
